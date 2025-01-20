@@ -9,9 +9,24 @@ has_children: false
 {: .no_toc .header }
 
 ----
-Starting using Mica is simple. Below steps will help you to get a community version running up in just one minute.
+Getting started with Mica is simple. We provide two different options: one is local GUI testing, and the other is deploying the service.
 
-*Note: The community version is free for personal use only, if you want to use in your business please reach us by emailing to [xx@xxx.us](mailto:xx@xxx.us)*
+## Local GUI Testing
+
+You can design and test the bot through the GUI. You will need Python 3.8 or higher. Then, execute the following command to install the required dependencies:
+```bash
+pip install -r requirement.txt
+```
+Set the OPENAI KEY in the local variables.
+```bash
+export OPENAI_API_KEY=<your key>
+```
+Finally, execute the following command to start the service:
+```bash
+python demo.py
+```
+You can visit `http://localhost:8760` and start to design.
+![gui.png](gui.png)
 
 ## Local Deployment
 
@@ -56,46 +71,89 @@ echo "Upgrade Done!"
 exit
 ```
 
-## Cloud Deployment
+## First Practice
+TODO: Add scenario, comments and explanation
+### LLM Agent
+```yaml
+transfer_money:
+  type: llm agent
+  description: This is an agent for transfer money request.
+  prompt: "You are a smart agent for handling transferring money request. When user ask for transferring money, it is necessary to sequentially collect the recipient's information and the transfer amount. Then, the function \"validate_account_funds\" should be called to check whether the account balance is sufficient to cover the transfer. If the balance is insufficient, it should return to the step of requesting the transfer amount. Finally, before proceeding with the transfer, confirm with the user whether the transfer should be made and then call \"submit_transaction\"."
+  args:
+    - recipient
+    - amount_of_money
+  uses:
+    - validate_account_funds
+    - submit_transaction
+```
+### Tool usage
+```python
+import sqlite3
 
-For cloud deployment using AWS ECS as an example, follow these steps:
-
-1. Create a Task Definition in ECS and configure the Container:
-    - Set the Image URI to `Mica/pack:latest`.
-    - Map at least port 80 to facilitate UI access and collector data reporting. For example, set Host port to 8080.
-
-![img.png](img.png)
-
-2. Configure Volumes to map `/data` to an EBS volume to ensure data persistence. If you don't add the volume, the data will be lost after restarting the container.
-
-![img_1.png](img_1.png)
-
-3. Launch a Service in a Cluster using the Task Definition.
-
-## Getting Started
-
-Access the system via `http://<your_ip>:8080` in your browser. The default credentials are `xxx@xxx.local/admin`. Upon initial login, remember to change the password.
-
-![img_3.png](img_3.png)
-
-Upon login, you'll enter the Wizard page by default. Follow the prompts to configure:
-
-1. **XXX**: Configure the system xxx
-   1. **xxx**: xxx.
-   2. **xXX**: xxx.
-
-![img_2.png](img_2.png)
-
-2. **XX**: XXx.
-   1. **XXX**: xxx.
-   2. **XXX**: xxx.
-
-![img_5.png](img_5.png)
-
-3. **XX**: XXx.
+def connect_db():
+    return sqlite3.connect('user_info.db')
 
 
-Upon completion, click "xx" to exit the Wizard. You can access Mica details and manage services from the left sidebar's Services page.
+def validate_account_funds(amount_of_money):
+    conn = connect_db()
+    cursor = conn.cursor()
 
+    cursor.execute("SELECT account_balance FROM user_info WHERE user_name = ?", ('user',)) 
+    account_balance = cursor.fetchone()
 
+    if account_balance is None:
+        print("doesn't exist!")
+        conn.close()
+        return False
 
+    if account_balance[0] >= amount_of_money:
+        print("suffient")
+        conn.close()
+        return True
+    else:
+        print("insuffient")
+        conn.close()
+        return False
+
+def submit_transaction(amount_of_money, recipient):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS transactions (
+        transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        amount_of_money REAL,
+        recipient TEXT,
+        transaction_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    ''')
+
+    cursor.execute('''
+    INSERT INTO transactions (amount_of_money, recipient)
+    VALUES (?, ?)
+    ''', (amount_of_money, recipient))
+
+    conn.commit()
+    conn.close()
+
+    print(f"Success. Money: {amount_of_money}, recipient: {recipient}")
+```
+### Ensemble Agent
+```yaml
+meta:
+  type: ensemble agent
+  description: You can select an agent to response user's question.
+  contain:
+    - transfer_money
+  fallback: default
+  steps:
+    - call: transfer_money
+  exit:
+    - policy: "After 5 seconds, give a closure prompt: Is there anything else I can help you with?  After another 30 seconds, then leave."
+```
+### Add an entrypoint
+```yaml
+main:
+  steps:
+    - call: meta
+```
