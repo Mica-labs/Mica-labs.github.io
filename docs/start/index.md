@@ -77,7 +77,7 @@ TODO: Add scenario, comments and explanation
 ```yaml
 transfer_money:
   type: llm agent
-  description: This is an agent for transfer money request.
+  description: This is an agent for a money transfer request.
   prompt: "You are a smart agent for handling transferring money request. When user ask for transferring money, it is necessary to sequentially collect the recipient's information and the transfer amount. Then, the function \"validate_account_funds\" should be called to check whether the account balance is sufficient to cover the transfer. If the balance is insufficient, it should return to the step of requesting the transfer amount. Finally, before proceeding with the transfer, confirm with the user whether the transfer should be made and then call \"submit_transaction\"."
   args:
     - recipient
@@ -142,10 +142,10 @@ def submit_transaction(amount_of_money, recipient):
 ```yaml
 meta:
   type: ensemble agent
-  description: You can select an agent to response user's question.
+  description: You can select an agent to respond to the user’s question.
   contain:
     - transfer_money
-  fallback: default
+  fallback: default_agent
   steps:
     - call: transfer_money
   exit:
