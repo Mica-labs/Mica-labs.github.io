@@ -15,11 +15,13 @@ permalink: /
 
 ---
 
-MICA is a new multi-agent editing specification that allows the implementation of complex dialogue systems and the handling of various real-world problems without the need to write code, by defining specific types of agents. The system architecture of MICA consists of four different agents: LLM Agent, Flow Agent, KB Agent, and Ensemble Agent.
+MICA is a new multi-agent designing specification that allows the implementation of complex conversational chatbot and the handling of various real-world problems without the need to write code, by defining specific types of agents. The system architecture of MICA consists of four different agents: LLM Agent, Flow Agent, KB Agent, and Ensemble Agent. The LLM agent can independently handle specific information-gathering tasks, such as querying the weather. The flow agent provides more precise flow control, ensuring that the conversation follows the designed flow throughout. The KB agent is a special type of agent designed for knowledge base question answering. The ensemble agent itself does not participate in the conversation but is responsible for selecting the appropriate agent to respond to the conversation.
+
 ![structure.png](structure.png)
 
 Current conversational AI design frameworks include Swarm, Rasa Pro, LangGraph, etc. Some of these rely on OpenAI’s framework but do not provide effective logical control (Swarm), while others are limited by the traditional pipeline model in QA systems, failing to leverage the powerful language understanding and processing capabilities of LLMs (Rasa Pro). There are also frameworks that rely on coding skills, making it difficult to design chatbots intuitively and conveniently (LangGraph). In comparison, MICA offers a complete definition, a self-consistent system, and, most importantly, MICA’s unique design specification allows it to evaluate the performance of chatbots designed using LLMs. Next, we will demonstrate this through a comparison of the performance of different frameworks.
 
+## Comparison: Airline Chatbot
 Take a chatbot that handles flight modifications, cancellations, and lost luggage as an example. Using Swarm, we need to define each agent and all possible transitions between the agents. Below is the implementation provided by Swarm, and you can find the complete information in their [code repository](https://github.com/openai/swarm/tree/main/examples/airline).
 ```python
 def transfer_to_flight_modification():
@@ -144,8 +146,8 @@ main:
   steps:
     - call: Meta
 ```
-
-Another example is a chatbot that includes restaurant booking and money transfer. Rasa Pro provides an implementation for this part.
+## Comparison: Money Transfer
+Another example is a chatbot that about money transfer. Rasa Pro provides an implementation for this part.
 
 When booking a restaurant, the chatbot needs to sequentially collect the restaurant name, number of people, reservation date, and time. Then, it checks whether the reservation time is available. Finally, it confirms all the reservation details.
 
