@@ -5,7 +5,7 @@ parent: Concepts
 nav_order: 1
 ---
 
-# Agents
+# Agent
 
 {: .no_toc .header }
 

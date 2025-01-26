@@ -143,6 +143,7 @@ def submit_transaction(amount_of_money, recipient):
     print(f"Success. Money: {amount_of_money}, recipient: {recipient}")
 ```
 ### Ensemble Agent
+You can define an Ensemble Agent to manage the scheduling of agents. Of course, since there is currently only one agent, you don’t have to implement the Ensemble Agent. However, if your chatbot includes multiple agents and needs to respond to different user intents, you will need an Ensemble Agent that contains these agents.
 ```yaml
 meta:
   type: ensemble agent
@@ -156,6 +157,7 @@ meta:
     - policy: "After 5 seconds, give a closure prompt: Is there anything else I can help you with?  After another 30 seconds, then leave."
 ```
 ### Add an entrypoint
+`main` is a special agent that does not have a `type` attribute. It serves as the entry point for the entire chatbot. Its steps can invoke any agent, but most of the time, you can call the Ensemble Agent to switch between different agents.
 ```yaml
 main:
   steps:
