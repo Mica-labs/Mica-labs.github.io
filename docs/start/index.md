@@ -72,8 +72,9 @@ exit
 ```
 
 ## First Practice
-TODO: Add scenario, comments and explanation
+Below is an implementation of a chatbot that can handle transfer services. You can paste all of the following agents into the same YAML document, such as`agents.yml`, and paste all the code into a single Python script, such as `tool.py`. Once you start the MICA service, you can easily engage in conversation.
 ### LLM Agent
+The transfer service requires collecting two parameters: the recipient and the transfer amount. Therefore, you can define an LLM agent named “transfer_money” and specify the process in the prompt. Additionally, you can define two parameters. Below is an example of the implementation.
 ```yaml
 transfer_money:
   type: llm agent
@@ -87,6 +88,7 @@ transfer_money:
     - submit_transaction
 ```
 ### Tool usage
+To ensure that the transfer amount is less than the actual account balance, we need to use a function tool to perform argument validation. Below is the implementation of the function that checks the transfer amount.
 ```python
 import sqlite3
 
@@ -114,7 +116,9 @@ def validate_account_funds(amount_of_money):
         print("insuffient")
         conn.close()
         return False
-
+```
+After the entire transfer process is successfully completed, we typically need to connect to a database to perform the actual transfer operation. Here, we can directly implement a Python function to accomplish this task. The LLM agent can automatically determine whether the transfer information is confirmed, and once confirmed, it will automatically call this function to submit the transaction information.
+```python
 def submit_transaction(amount_of_money, recipient):
     conn = connect_db()
     cursor = conn.cursor()

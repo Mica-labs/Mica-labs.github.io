@@ -7,15 +7,12 @@ description: "The Enterprise Level Multi-Agent Solution"
 permalink: /
 ---
 
-
-
 # What is MICA
 
 {: .header}
 
 ---
-
-MICA is a new multi-agent designing specification that allows the implementation of complex conversational chatbot and the handling of various real-world problems without the need to write code, by defining specific types of agents. The system architecture of MICA consists of four different agents: LLM Agent, Flow Agent, KB Agent, and Ensemble Agent. The LLM agent can independently handle specific information-gathering tasks, such as querying the weather. The flow agent provides more precise flow control, ensuring that the conversation follows the designed flow throughout. The KB agent is a special type of agent designed for knowledge base question answering. The ensemble agent itself does not participate in the conversation but is responsible for selecting the appropriate agent to respond to the conversation.
+<p><span style="font-size: 2em; font-weight: bold;">MICA</span> is a new multi-agent designing specification that allows the implementation of complex conversational chatbot and the handling of various real-world problems without the need to write code, by defining specific types of agents.</p> The system architecture of MICA consists of four different agents: LLM Agent, Flow Agent, KB Agent, and Ensemble Agent. The LLM agent can independently handle specific information-gathering tasks, such as querying the weather. The flow agent provides more precise flow control, ensuring that the conversation follows the designed flow throughout. The KB agent is a special type of agent designed for knowledge base question answering. The ensemble agent itself does not participate in the conversation but is responsible for selecting the appropriate agent to respond to the conversation.
 
 ![structure.png](structure.png)
 
@@ -23,22 +20,40 @@ Current conversational AI design frameworks include Swarm, Rasa Pro, LangGraph, 
 
 ## Comparison: Airline Chatbot
 Take a chatbot that handles flight modifications, cancellations, and lost luggage as an example. Using Swarm, we need to define each agent and all possible transitions between the agents. Below is the implementation provided by Swarm, and you can find the complete information in their [code repository](https://github.com/openai/swarm/tree/main/examples/airline).
-```python
+<details>
+  <summary>Show the code</summary>
+  <pre><code>
 def transfer_to_flight_modification():
     return flight_modification
-
 
 def transfer_to_flight_cancel():
     return flight_cancel
 
-
 def transfer_to_flight_change():
     return flight_change
-
 
 def transfer_to_lost_baggage():
     return lost_baggage
 
+def transfer_to_triage():
+    """Call this function when a user needs to be transferred to a different agent and a different policy.
+    For instance, if a user is asking about a topic that is not handled by the current agent, call this function.
+    """
+    return triage_agent
+  </code></pre>
+</details>
+```python
+def transfer_to_flight_modification():
+    return flight_modification
+
+def transfer_to_flight_cancel():
+    return flight_cancel
+
+def transfer_to_flight_change():
+    return flight_change
+
+def transfer_to_lost_baggage():
+    return lost_baggage
 
 def transfer_to_triage():
     """Call this function when a user needs to be transferred to a different agent and a different policy.

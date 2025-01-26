@@ -6,11 +6,11 @@ has_children: true
 
 ---
 
-# References
+# Concepts
 
 {: .no_toc .header }
 
 ----
 
-You can find the important concepts that are used in Mica and would help you to use Mica in more advanced ways.
+The MICA specification is very simple and straightforward. For basic chatbots, you only need to define all the required agents in a single YAML file. At the same time, you can also implement your own code to connect the chatbot with external systems.
 

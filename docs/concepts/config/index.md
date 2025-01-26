@@ -2,7 +2,7 @@
 layout: default
 title: Config
 parent: Concepts
-nav_order: 2
+nav_order: 3
 ---
 
 # Logs
