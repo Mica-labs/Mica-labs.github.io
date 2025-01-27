@@ -1,30 +1,136 @@
 ---
 layout: default
 title: Why MICA
-parent: Introduction
-nav_order: 1
+nav_order: 2
 ---
 
 # Why MICA
 
 ---
-MICA, as the next-generation conversational chatbot design framework, has the following features.
+As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction.  We have the following observations: 
+## (1) Python Programming (AutoGen, LangChain, Amazon MAO, and Swarm) -------(CrewAI)----------------------------- (MICA) -------- Natural Language Programming
+![whyMICA-1.jpg](whyMICA-1.jpg)
+By their nature, agents are more intuitively formulated through natural language, while Python code better serves as a bridge between agents and the computer world.  Whenever there is an inclination to use Python, there is a possibility of implementing the same logic using natural language.  Here is an example of a natural language command line using LLM(MICA) vs. Python+LLM (link).  MICA aims to move away from Python programming as much as possible. 
 
-## Effective Evaluation
-Before deploying a chatbot, it is critical to evaluate its performance, response speed, and accuracy. In this regard, Swarm encourages developers to bring their own evaluation suites to test the performance of their swarms, which indicates that they lack an effective built-in evaluation tool. The examples they provide show a focus on single-turn messages. However, in practice, user intent often depends on context, requiring a holistic and comprehensive evaluation approach to assess the quality of conversations across various user intents.
-An ideal evaluation tool should:
-Understand the functions of all agents within a chatbot and their interconnections.
-Generate comprehensive test cases to evaluate individual agents, collaborative agent performance, and unanticipated use cases.
-Large language models (LLMs), with their strong language comprehension capabilities, are particularly suited for this task. Based on this, our YAML-format chatbot is better suited for implementing evaluation tools. Since our chatbot is well-organized, readable, and easy to understand, an LLM can fully comprehend its structure. In contrast, Swarm organizes agents in Python code without explicitly defining logical relationships between agents (e.g., whether two agents should execute sequentially or in parallel), potentially leading LLMs to overlook some paths.
+## (2) Control Flow (Computer Programming Language) ------------------------------(MICA) -----------------  Full Flexibility (LLMs)
 
-## Comprehensive Design
-Swarm defines the smallest unit of a chatbot as an "agent" without further classification. In contrast, MICA categorizes agents into four distinct types based on practical dialogue needs: Ensemble Agent, LLM Agent, Flow Agent and KB Agent. Each type has unique characteristics suited to handling different types of tasks, such as task-oriented dialogues, FAQs, or open-domain question answering.
+Service bots are traditionally developed with rigid flow control.  As long as you would like to give more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
 
-## Flexibility and Collaboration
-Our tool strictly follows the YAML specification, which aligns with human-readable formatting. Even individuals without a coding background can design chatbots directly. On the other hand, Swarm requires developers to be familiar with Python, making it less accessible to non-technical users.
+For example, when we want to implement a transfer chatbot, since traditional flow control tool (Rasa) requires explicitly defining all slots, bot responses, and decision logic, it takes at least 180 lines of YAML (exclude some function code) to complete this task. In contrast, with MICA, you can design the chatbot in under 40 lines.
 
-## Support for Multiple LLM Models
-Swarm is deeply integrated with OpenAI and heavily dependent on its functionality. In contrast, our YAML framework is model-agnostic, serving purely as a specification without mandating the use of a specific LLM. Our framework provides interfaces for third-party LLMs, allowing users to configure their own models through our APIs.
+Below is a partial implementation in [Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot):
+```yaml
+flows:
+  transfer_money:
+    description: send money to friends and family
+    name: transfer money
+    always_include_in_prompt: True
+    steps:
+      - collect: transfer_money_recipient
+        description: the name of a person
+      - id: ask_amount # we keep this id, because we use it for a jump
+        collect: transfer_money_amount_of_money
+        description: the amount of money without any currency designation
+      - action: check_transfer_funds
+        next:
+          - if: not slots.transfer_money_has_sufficient_funds
+            then:
+              - action: utter_transfer_money_insufficient_funds
+              - set_slots:
+                  - transfer_money_amount_of_money: null
+                  - transfer_money_has_sufficient_funds: null
+                next: ask_amount
+          - else: transfer_money_final_confirmation
+      - id: transfer_money_final_confirmation
+        collect: transfer_money_final_confirmation
+        description: accepts True or False
+        ask_before_filling: true
+        next:
+          - if: not slots.transfer_money_final_confirmation
+            then:
+              - action: utter_transfer_cancelled
+                next: END
+          - else: execute_transfer
+      - id: execute_transfer
+        action: execute_transfer
+        next:
+          - if: slots.transfer_money_transfer_successful
+            then:
+              - action: utter_transfer_complete
+                next: END
+          - else:
+              - action: utter_transfer_failed
+                next: END
+
+actions:
+  - check_transfer_funds
+  - execute_transfer
+
+slots:
+  transfer_money_transfer_successful:
+    type: bool
+    mappings:
+      - type: custom
+        action: execute_transfer
+  transfer_money_has_sufficient_funds:
+    type: bool
+    mappings:
+      - type: custom
+        action: check_transfer_funds
+  transfer_money_recipient:
+    type: text
+    mappings:
+      - type: from_llm
+  transfer_money_amount_of_money:
+    type: text
+    mappings:
+      - type: from_llm
+  transfer_money_final_confirmation:
+    type: text
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_transfer_money_insufficient_funds:
+    - text: You don't have so much money on your account!
+  utter_transfer_failed:
+    - text: something went wrong transferring the money.
+  utter_out_of_scope:
+    - text: Sorry, I'm not sure how to respond to that. Type "help" for assistance.
+  utter_ask_transfer_money_amount_of_money:
+    - text: How much money do you want to transfer?
+  utter_ask_transfer_money_recipient:
+    - text: Who do you want to transfer money to?
+  utter_transfer_complete:
+    - text: Successfully transferred {transfer_money_amount_of_money} to {transfer_money_recipient}.
+  utter_transfer_cancelled:
+    - text: Transfer cancelled.
+  utter_ask_transfer_money_final_confirmation:
+    - buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No, cancel the transaction"
+      text: Would you like to transfer {transfer_money_amount_of_money} to {transfer_money_recipient}?
+```
+If you use MICA, it will be:
+```yaml
+transfer_money:
+  type: llm_agent
+  description: This agent let's users send money to friends and family.
+  prompt: |
+    You are a smart agent for handling transferring money request. When user ask for transferring money, it is necessary to sequentially collect the recipient's information and the transfer amount. Then, the function "check_transfer_funds" should be called to check whether the account balance is sufficient to cover the transfer. If the balance is insufficient, it should return to the step of requesting the transfer amount. Finally, before proceeding with the transfer, confirm with the user whether the transfer should be made.
+  args:
+    - recipient
+    - amount_of_money
+  uses:
+    - check_transfer_funds
+```
+
+## (3) Multiple Agents   --------------------- (MICA) ---------------------------------------- One Gigantic LLM Agent
+
+While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
+MICA considers these observations and advocates for a declarative agent framework as the future of agent design. While it retains flow control and tool calls to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for significant advancements in automated testing and evaluation. We will explore these benefits further once MICA’s testing capabilities are put online. 
 
 
 [Try and Explore MICA Today!](../start/) 
