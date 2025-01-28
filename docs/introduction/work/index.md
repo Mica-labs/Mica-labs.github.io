@@ -4,10 +4,6 @@ title: How MICA Works
 nav_order: 3
 ---
 
-# How MICA Works
-{: .header}
-
----
 In real-world scenarios, users may express unexpected intentions at any time. The design mechanism of MICA is specifically aimed at handling the complex and dynamic nature of actual conversations. We define a chatbot as a collection of agents, where, during a conversation with the chatbot, the agents independently decide the next course of action: whether to switch agents, whether to wait for user input, whether to end the conversation, and so on. Essentially, we aim to give as much control of the conversation as possible to the LLM.
 
 ![schedule.png](schedule.png)

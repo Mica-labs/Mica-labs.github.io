@@ -1,14 +1,10 @@
 ---
 layout: default
 title: Quick Start
-nav_order: 4
+nav_order: 5
 has_children: false
 ---
 
-# Quick Start
-{: .no_toc .header }
-
-----
 Getting started with Mica is simple. We provide two different options: one is local GUI testing, and the other is deploying the service.
 
 ## Local GUI Testing

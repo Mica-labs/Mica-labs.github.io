@@ -6,7 +6,7 @@
     node, pages_list, parent_page, grandparent_page.
 {%- endcomment -%}
 
-{%- if page.url != "/" and page.parent -%}
+{%- if page.url != "/" -%}
 
 {%- capture nav_list_link -%}
 <a href="{{ page.url | relative_url }}" class="nav-list-link">
@@ -37,16 +37,16 @@
   {%- comment -%}
     The ordinary pages (if any) and the collections pages (if any) are separated by
     occurrences of nav_category.
-    
+
     Any ancestor nav-links of the page are contained in the last group of pages,
     immediately preceding nav-lists. After splitting at "</a>", the anchor that
     was split is a potential ancestor link when the following split starts with
-    a nav-list. 
-    
+    a nav-list.
+
     The array nav_breadcrumbs is the stack of current potential ancestors of the
     current page. A split that contains one or more "</ul>"s requires that number
     of potential ancestors to be popped from the stack.
-    
+
     The number of occurrences of a string in nav_split_next is computed by removing
     them all, then dividing the resulting size difference by the length of the string.
   {%- endcomment %}
@@ -92,12 +92,12 @@
   {%- endcomment -%}
 
   {%- assign pages_list = site[page.collection] | default: site.html_pages -%}
-  
+
   {%- assign parent_page = nil -%}
   {%- assign grandparent_page = nil -%}
 
   {%- for node in pages_list -%}
-  
+
     {%- if node.has_children and page.grand_parent -%}
 
       {%- if node.title == page.parent and node.parent == page.grand_parent -%}
@@ -118,7 +118,7 @@
     {%- endif -%}
 
   {%- endfor -%}
-  
+
   {%- capture nav_parent_link -%}
     <a href="{{ parent_page.url | relative_url }}">{{ page.parent }}</a>
   {%- endcapture -%}
@@ -136,7 +136,9 @@
   {%- if nav_grandparent_link %}
     <li class="breadcrumb-nav-list-item">{{ nav_grandparent_link }}</li>
   {%- endif %}
+  {%- if nav_parent_link %}
     <li class="breadcrumb-nav-list-item">{{ nav_parent_link }}</li>
+  {%- endif %}
     <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
   </ol>
 </nav>

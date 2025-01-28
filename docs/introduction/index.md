@@ -4,11 +4,8 @@ title: Why MICA
 nav_order: 2
 ---
 
-# Why MICA
-
----
 As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction.  We have the following observations: 
-## (1) Python Programming (AutoGen, LangChain, Amazon MAO, and Swarm) -------(CrewAI)----------------------------- (MICA) -------- Natural Language Programming
+## (1) Python Programming vs Natural Language Programming
 ![whyMICA-1.jpg](whyMICA-1.jpg)
 By their nature, agents are more intuitively formulated through natural language, while Python code better serves as a bridge between agents and the computer world.  Whenever there is an inclination to use Python, there is a possibility of implementing the same logic using natural language.  Here is an example of a natural language command line using LLM(MICA) vs. Python+LLM (link).  MICA aims to move away from Python programming as much as possible. 
 

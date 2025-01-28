@@ -5,11 +5,6 @@ parent: Concepts
 nav_order: 2
 ---
 
-# Custom Function
-
-{: .no_toc .header }
-
-----
 MICA includes an internal sandbox that can execute custom Python code. You can implement your own arg validation functions, webhooks, or links to a database.
 
 You need to write all of them in a single .py file, and each Python function’s parameter names should be meaningful, ideally matching the arg names defined in the agents.

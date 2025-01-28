@@ -5,11 +5,6 @@ parent: Concepts
 nav_order: 1
 ---
 
-# Agent
-
-{: .no_toc .header }
-
-----
 An agent is the foundation of building a chatbot. You can create different agents based on the characteristics of your chatbot to implement its logic. We categorize all agents into four types: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent.
 
 ## KB Agent
