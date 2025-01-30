@@ -5,8 +5,9 @@ nav_order: 2
 ---
 
 As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction.  We have the following observations: 
+
 <center>
-<img style="width: 80%; height: auto;" src="whyMICA-1.jpg">
+<img style="width: 80%; height: auto;" src="whyMICA-1.png">
 <br>
 <div>Python Programming vs Natural Language Programming</div>
 </center>

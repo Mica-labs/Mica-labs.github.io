@@ -6,6 +6,11 @@ nav_order: 1
 ---
 
 An agent is the foundation of building a chatbot. You can create different agents based on the characteristics of your chatbot to implement its logic. We categorize all agents into four types: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent.
+<center>
+<img style="width: 60%; height: auto;" src="structure.png">
+<br>
+<div>Framework Structure</div>
+</center>
 
 ## KB Agent
 A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks. If you have FAQ questions, documents, or websites, and want your chatbot to answer user questions based on this knowledge base, you need to define a KB Agent.
