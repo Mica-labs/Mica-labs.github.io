@@ -17,6 +17,7 @@ Flight Cancel:
    - flight_number
   description: It can handle flight cancel requests.
   prompt: <Flight Cancel Policy>
+
 Flight Change:
   type: llm agent
   args:
@@ -25,6 +26,7 @@ Flight Change:
   prompt: <Flight Change Policy>
   uses:
     - change_flight
+
 Lost Baggage:
   type: llm agent
   args:
@@ -32,12 +34,14 @@ Lost Baggage:
     - address
   description: It can handle baggage lost requests.
   prompt: <Lost Baggage Policy>
+
 Meta:
   type: ensemble agent
   contain:
     - Flight Cancel
     - Flight Change
     - Lost Baggage
+
 main:
   steps:
     - call: Meta
