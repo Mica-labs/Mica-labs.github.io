@@ -9,7 +9,7 @@ An agent is the building block of MICA. You can create different agents based on
 <center>
 <img style="width: 30%; height: auto;" src="structure.png">
 <br>
-<div>Framework Structure</div>
+<div>Types of Agents</div>
 </center>
 
 ## KB Agent
