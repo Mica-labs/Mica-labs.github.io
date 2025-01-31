@@ -5,9 +5,9 @@ parent: Concepts
 nav_order: 1
 ---
 
-An agent is the foundation of building a chatbot. You can create different agents based on the characteristics of your chatbot to implement its logic. We categorize all agents into four types: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent.
+An agent is the building block of MICA. You can create different agents based on the tasks you would like to assign to them.  In MICA, there are four types of agents: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve customers collectively.  KB and LLM Agents are atomic agents meaning they cannot contain other agents.  Ensemble Agents can consist of multiple atomic agents.  Flow Agents can be both.
 <center>
-<img style="width: 60%; height: auto;" src="structure.png">
+<img style="width: 40%; height: auto;" src="structure.png">
 <br>
 <div>Framework Structure</div>
 </center>
