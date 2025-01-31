@@ -13,9 +13,7 @@ An agent is the building block of MICA. You can create different agents based on
 </center>
 
 ## KB Agent
-A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks. If you have FAQ questions, documents, or websites, and want your chatbot to answer user questions based on this knowledge base, you need to define a KB Agent.
-
-Here is an example of a KB Agent:
+A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks. If you have FAQ questions, documents, or websites, and want your chatbot to answer user questions based on them, you only need to declare a KB Agent. That is it.  The agent will handle all the tehnical details for you, including vectorization, indexing, RAG, etc. Here is an example:
 
 ```yaml
 kb:   # agent name
@@ -32,12 +30,12 @@ The agent name can be any string that complies with YAML formatting. This KB Age
 
 - `faq`: You can define specific questions and their corresponding answers. Use each question as a key and its answer as the value.
 - `web`: You can list all relevant websites here. Our engine will automatically crawl the content of these websites, segment it into embeddings, and use it as part of the knowledge base.
-- `file`: This field includes all files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place all files in this path. The engine will read all the content in this directory and segment it into embeddings.
+- `file`: This field includes files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place all files there. The engine will digest all the content in this directory and put it in the knowledge base.
 
-For each user input, the KB Agent will first perform embeddings, rank them by similarity, and select the most similar text segments as candidate answers. These candidates are then passed to other agents (e.g., Ensemble Agent) to determine whether the KB Agent's response can be used.
+For each user input, the KB Agent will first perform embeddings, rank them by similarity, and select the most similar text segments for answer generation. These answers could be passed to other agents (e.g., Ensemble Agent) to determine whether they can be used. 
 
 ## LLM Agent
-The LLM Agent is the most basic agent in task-oriented conversations. It excels at performing information-gathering tasks, such as checking the weather, making restaurant reservations, and so on.
+An LLM Agent is the most basic agent in task-oriented conversations. It excels at performing information-gathering tasks, such as checking the weather, making restaurant reservations, and so on.
 ```yaml
 transfer_money:
   type: llm agent
