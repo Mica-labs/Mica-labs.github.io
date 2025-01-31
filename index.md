@@ -47,10 +47,10 @@ main:
     - call: Meta
 ```
 
-As a comparison, the same implementation is available for [Swarm](https://github.com/openai/swarm/tree/main/examples/airline) and XYZ (link).
+As a comparison, the same implementation is available for [Swarm](https://github.com/openai/swarm/tree/main/examples/airline).
 
 <details>
-  <summary>Show the code</summary>
+  <summary>Swarm Implementation</summary>
   <pre><code>
 def transfer_to_flight_modification():
     return flight_modification
