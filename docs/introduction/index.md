@@ -19,20 +19,17 @@ example here
 Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly. 
 
 <center>
-<img style="width: 60%; height: auto;" src="whyMICA-2.png">
+<img style="width: 65%; height: auto;" src="whyMICA-2.png">
 <br>
 <div> Obs. 2: Rigid Control Flow vs. Full Flexibility</div>
 </center>
 
-Service bots are traditionally developed with rigid flow control.  As long as you would like to give more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
+Service bots are traditionally developed with rigid flow control.  As long as you would like to give a little bit more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
 
-For example, when we want to implement a transfer chatbot, since traditional flow control tool (Rasa) requires explicitly defining all slots, bot responses, and decision logic, it takes at least 180 lines of YAML (exclude some function code) to complete this task. In contrast, with MICA, you can design the chatbot in under 40 lines.
-
-Below is a partial implementation in [Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot):
-
+For example, when we want to implement a money transfer chatbot, since traditional flow control tool with LLM support ([Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot)) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete this task. In contrast, with MICA, you can design the chatbot in under 40 lines.
 
 <details>
-  <summary>Show the code</summary>
+  <summary>Show the RASA code</summary>
   <pre><code>flows:
   transfer_money:
     description: send money to friends and family
@@ -131,8 +128,8 @@ responses:
 If you use MICA, it will be:
 ```yaml
 transfer_money:
-  type: llm_agent
-  description: This agent let's users send money to friends and family.
+  type: llm agent
+  description: This agent let users transfer money to a recipient.
   prompt: |
     You are a smart agent for handling transferring money request. When user ask for transferring money, 
     it is necessary to sequentially collect the recipient's information and the transfer amount. 
@@ -146,14 +143,14 @@ transfer_money:
 ```
 
 <center>
-<img style="width: 80%; height: auto;" src="whyMICA-3.png">
+<img style="width: 65%; height: auto;" src="whyMICA-3.png">
 <br>
-<div>Multiple Agents vs One Gigantic LLM Agent</div>
+<div>Obs 3: Multiple Agents vs. One Gigantic LLM Agent</div>
 </center>
 
 While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
-MICA considers these observations and advocates for a declarative agent framework as the future of agent design. While it retains flow control and tool calls to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for significant advancements in automated testing and evaluation. We will explore these benefits further once MICA’s testing capabilities are put online. 
 
+In summary, MICA considers these observations and advocates for an agent centric framework as the future of agent design. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing a critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
-[Try and Explore MICA Today!](../start/) 
+[Try and Explore MICA Today!](../start/) (this shall be linked to the home page of MICA at github)
 
