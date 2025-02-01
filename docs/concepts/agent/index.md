@@ -5,7 +5,7 @@ parent: Concepts
 nav_order: 1
 ---
 
-An agent is the building block of MICA. You can create different agents based on the tasks you would like to assign to them.  In MICA, there are four types of agents: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve customers collectively.  KB and LLM Agents are atomic agents meaning they cannot contain other agents.  Ensemble Agents can consist of multiple atomic agents.  Flow Agents can be both.
+An agent is the building block of MICA. You can create different agents based on the tasks you would like to assign to them.  In MICA, there are four types of agents: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve customers collectively.  KB and LLM Agents are atomic meaning they cannot contain other agents.  Ensemble Agents can consist of multiple atomic agents.  Flow Agents can be both.
 <center>
 <img style="width: 30%; height: auto;" src="structure.png">
 <br>
@@ -35,7 +35,8 @@ The agent name can be any string that complies with YAML formatting. This KB Age
 For each user input, the KB Agent will first perform embeddings, rank them by similarity, and select the most similar text segments for answer generation. These answers could be passed to other agents (e.g., Ensemble Agent) to determine whether they can be used. 
 
 ## LLM Agent
-An LLM Agent is the most basic agent in task-oriented conversations. It excels at performing information-gathering tasks, such as checking the weather, making restaurant reservations, and so on.
+LLM Agents serve as the fundamental building block for task-oriented conversations. It describes domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate. 
+
 ```yaml
 transfer_money:
   type: llm agent
@@ -53,17 +54,17 @@ transfer_money:
     - validate_account_funds
     - submit_transaction
 ```
-The above is an example of how to use an LLM Agent to handle transfer tasks. A complete LLM Agent needs to include the following attributes:
+The above is an example of using an LLM Agent to handle money transfer. A typical LLM Agent includes the following attributes:
 
-- `description`: This field provides a brief explanation of the agent’s functionality. It serves as the description for the agent, and LLM will use this field to determine whether this agent should be used for the response.
-- `prompt`: This field details the process for the agent. If certain functions need to be called during specific steps, the prompt should indicate which function to call.
-- `args` (optional): If you need to record specific information, you should fill out this field. Currently, all args are strings.
-- `uses` (optional): This lists all the function names used in the prompt. These functions can be implemented in a Python script.
+- `description`: This field provides a brief explanation of the agent’s functionality. Based on the conversation context, LLM will use this field to determine whether this agent should be used for the response or not.
+- `prompt`: This field details the process for the agent. If certain functions need to be called during the process, the prompt should indicate when and which function to call.
+- `args` (optional): If you need to extract specific information (slots) from the conversation, you could fill out this field. Currently, all slots are strings.
+- `uses` (optional): This lists all the function names used in the prompt. These functions can be implemented in a separate Python script.
 
-When calling the LLM Agent, MICA will automatically fill in all the args based on the defined content and call the corresponding Python functions based on the LLM’s response. This process continues until the LLM Agent’s task is completed or the user changes their mind and requires a different agent to handle the response.
+When calling the LLM Agent, MICA will automatically fill in all the args based on the defined content and call the corresponding Python functions based on the LLM’s response. This process continues until the LLM Agent’s task is completed or the user changes his mind and needs a different agent to handle his request. 
 
 ## Flow Agent
-The Flow Agent is suitable for fixed, serialized business logic. We combine programming languages with YAML format to define various required logic.
+The Flow Agent is suitable for fixed, sequential business logic.  It enables flow control commonly existing in traditional programming language using a YAML format.
 ```yaml
 shopping_flow:
   type: flow agent
@@ -112,19 +113,19 @@ shopping_flow:
   fallback:
     - policy: "Give a fallback message: I'm sorry, I didn't understand that. Can you please rephrase? If fallback three times consecutively, then terminate the conversation."
 ```
-A Flow Agent needs to include the following attributes:
+A Flow Agent typically has the following attributes:
 
-- `description`: Similar to the LLM Agent, the description of the Flow Agent should briefly explain its functionality.
-- `args` (optional): All args that need to be collected within the flow. Similar to the LLM Agent, if args are defined here, they will be automatically filled into the corresponding fields when a user step is defined in the flow.
-- `steps`: This is the main attribute of the Flow Agent, where all the logic is written. I will explain the different types of steps in more detail below.
+- `description`: Similar to LLM Agent, the description of the Flow Agent should briefly explain its functionality.
+- `args` (optional): The variables that need to be collected from the flow. 
+- `steps`: This is the main attribute of the Flow Agent, where all the logic is written.  Please refer to Steps for more details. 
 - `fallback` (optional): If the user’s input is unrelated to the current flow and this field is defined, the flow will follow the specified fallback policy. Otherwise, the flow will terminate immediately.
 
 ## Ensemble Agent
-The Ensemble Agent is different from the previous agents that have actual conversational functionality. Its main role is to manage and assign different agents to handle responses.
+Ensemble Agents are different from the other three agents that have actual conversational functionality. Its main role is to manage and assign different agents to provide responses.  Here is an example,
 ```yaml
 Meta:
   type: ensemble agent
-  contain:
+  contains:
     - flow agent
     - llm agent
   args:
@@ -134,9 +135,9 @@ Meta:
   exit: 
     policy: "exit policy here"
 ```
-Here is an Ensemble Agent, and you need to fill out the following information:
+You need to fill out the following information:
 
-- `contain`: List all the agent names managed and scheduled by this Ensemble Agent.
-- `args` (optional): Similar to before, the parameters for this Ensemble Agent are defined here. If the arg names defined here match those in the agents listed in contain, the arg values from those agents will be automatically filled into this field.
-- `fallback` (optional): If the user’s input cannot be handled by any agent in contain, and no fallback is defined, there will be no response. Otherwise, you can specify any agent (LLM Agent/Flow Agent) to handle the fallback response. You can also define a policy to describe your fallback logic.
-- `exit` (optional): When the user has completed a specific process, if exit is not defined, the bot will continue to wait. If defined, the bot will automatically end the conversation after 3 responses with no user input. You can also customize your exit policy, similar to how you define a fallback.
+- `contains`: List all the agent names managed and scheduled by this Ensemble Agent.
+- `args` (optional): Similar to before, the variables(slots) for this Ensemble Agent are defined here. If the arg names defined here match those in the agents listed, the values from those agents will be automatically filled into this field.
+- `fallback` (optional): If the user’s input cannot be handled by any agent listed, and no fallback is defined, there will be no response. Otherwise, you can specify an agent, e.g., LLM Agent/Flow Agent, to handle the fallback response. You can also define a policy to describe the fallback condition.
+- `exit` (optional): When the user has completed a specific process, if exit is not defined, the bot will continue running. If defined, the bot will terminate the conversation after 3 tries. You can customize your exit policy, similar to how you define a fallback.
