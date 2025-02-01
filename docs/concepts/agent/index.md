@@ -117,7 +117,7 @@ A Flow Agent typically has the following attributes:
 
 - `description`: Similar to LLM Agent, the description of the Flow Agent should briefly explain its functionality.
 - `args` (optional): The variables that need to be collected from the flow. 
-- `steps`: This is the main attribute of the Flow Agent, where all the logic is written.  Please refer to Steps for more details. 
+- `steps`: This is the main attribute of the Flow Agent, where all the logic is written.  Please refer to Flow Control for more details. 
 - `fallback` (optional): If the user’s input is unrelated to the current flow and this field is defined, the flow will follow the specified fallback policy. Otherwise, the flow will terminate immediately.
 
 ## Ensemble Agent
