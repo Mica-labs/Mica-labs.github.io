@@ -10,7 +10,7 @@ MICA (Multiple Intelligent Conversational Agents) is designed to simplify the de
 These frameworks often emphasize the orchestration of multiple agents, but their designs are frequently buried in intricate Python code, lacking a clear, big picture. We argue that the core of an agent framework should center on the agents themselves. Approaches like Swarm’s minimalist design and CrewAI’s use of agent configuration files offer promising directions.  Here, we would like to take one step further by introducing MICA, an agent centric framework.
 
 MICA comprises four types of agents: KB, LLM, Flow, and Ensemble. As their names suggest, KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language.  An  Ensemble Agent orchestrates these agents and serve customers collectively. MICA minimizes the use of other concepts. 
- Here is a skeleton of an airline chatbot using MICA. 
+ Here is a skeleton of an airline chatbot using MICA. The full implementation is available here (link to the example in MICA). 
 
 ```yaml
 Flight Cancel:
