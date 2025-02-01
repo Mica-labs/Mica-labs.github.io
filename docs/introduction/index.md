@@ -9,7 +9,7 @@ As the capabilities of large language models (LLMs) continue to grow, it is anti
 <center>
 <img style="width: 80%; height: auto;" src="whyMICA-1.png">
 <br>
-<div>Python Programming vs. Natural Language Programming</div>
+<div> Obs. 1: Python Programming vs. Natural Language Programming</div>
 </center>
 
 By their nature, the tasks performed by agents are often easier to express in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language.   Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman). 
@@ -19,9 +19,9 @@ example here
 Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly. 
 
 <center>
-<img style="width: 80%; height: auto;" src="whyMICA-2.png">
+<img style="width: 60%; height: auto;" src="whyMICA-2.png">
 <br>
-<div>Control Flow vs Full Flexibility</div>
+<div> Obs. 2: Rigid Control Flow vs. Full Flexibility</div>
 </center>
 
 Service bots are traditionally developed with rigid flow control.  As long as you would like to give more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
