@@ -9,11 +9,11 @@ In real-world conversations, users may express their needs in any order.  MICA i
 <center>
 <img style="width: 70%; height: auto;" src="schedule.png">
 <br>
-<div>MICA Dynamics</div>
+<div> Agent Scheduling in MICA </div>
 </center>
 
-The diagram of a single-turn conversation. Our chatbot is essentially a pool containing multiple agents, with the state of this pool managed by the ensemble agent. When there is user input, the ensemble agent, through the controller, analyzes and selects the most relevant agent from the pool to respond. This agent then takes over the conversation, meaning that as long as the agent believes it can handle the user’s response, it will continue to reply to the user. This assumption is based on the idea that users, in general, do not frequently switch topics, but rather continue within the current context, so there is no need for frequent reassessment of whether a new agent should be selected.
+The diagram shows a single-turn conversation. Our chatbot is essentially a pool containing multiple agents, with the state of this pool managed by the ensemble agent. When there is a user input, the ensemble agent, through the controller, analyzes and selects the most relevant agent from the pool to respond. This agent then takes over the conversation, meaning that as long as the agent believes it can handle the user’s response, it will continue to respond to the user. This assumption is based on the observation that users, in general, do not frequently switch topics, but rather continue within the current context. There is no need to frequently reassess which agent is the most appropriate one to respond.  MICA will also provide other scheduling options in its future release. 
 
-However, when the agent clearly determines that the user’s intention is no longer related to its task, it will automatically release control, handing it back to the ensemble agent, which will then use the controller to choose the next agent to respond. This process continues until the agent determines that it is time for the user to speak again.
+When an agent clearly determines that the user’s intention is no longer related to its task, it will release control, handing it back to the ensemble agent, which will then use the controller to choose the next agent to respond. This process continues until the agent determines that it is time for the user to speak again.
 
-Through this mechanism, MICA ensures the independence and modularity of each agent in the chatbot while minimizing the need to call the LLM. This reduces the invocation costs and achieves a good conversational performance.
+With this mechanism, MICA ensures the independence and modularity of individual agents while minimizing the need to call the LLM for triage.  This reduces costs and latency.
