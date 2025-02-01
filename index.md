@@ -49,7 +49,7 @@ main:
     - call: Meta
 ```
 
-As a comparison, the same implementation is available for [Swarm](https://github.com/openai/swarm/tree/main/examples/airline).
+As a comparison, the Swarm implementation is [here](https://github.com/openai/swarm/tree/main/examples/airline).
 
 <details>
   <summary>Swarm Implementation</summary>
