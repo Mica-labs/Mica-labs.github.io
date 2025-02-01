@@ -8,5 +8,5 @@ has_children: true
 
 {: .no_toc .header }
 
-The MICA specification is straightforward.  You only need to define all the required agents in a single YAML file. At the same time, you can also write python code to do programming or connect the bot with external systems.
+MICA is designed for simplicity. Agents can be defined within a single YAML file. Additionally, Python code can be used for custom programming or integrating the bot with external systems.
 
