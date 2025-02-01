@@ -8,6 +8,5 @@ has_children: true
 
 {: .no_toc .header }
 
-
-The MICA specification is very simple and straightforward. For basic chatbots, you only need to define all the required agents in a single YAML file. At the same time, you can also implement your own code to connect the chatbot with external systems.
+The MICA specification is straightforward.  You only need to define all the required agents in a single YAML file. At the same time, you can also write python code to do programming or connect the bot with external systems.
 
