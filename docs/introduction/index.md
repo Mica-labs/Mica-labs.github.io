@@ -9,13 +9,14 @@ As the capabilities of large language models (LLMs) continue to grow, it is anti
 <center>
 <img style="width: 80%; height: auto;" src="whyMICA-1.png">
 <br>
-<div>Python Programming vs Natural Language Programming</div>
+<div>Python Programming vs. Natural Language Programming</div>
 </center>
 
-By their nature, agents are more intuitively formulated through natural language, while Python code better serves as a bridge between agents and the computer world.  Whenever there is an inclination to use Python, there is a possibility of implementing the same logic using natural language.  Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman).  MICA aims to move away from Python programming as much as possible. 
+By their nature, the tasks performed by agents are often easier to express in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language.   Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman). 
 
 example here
 
+Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly. 
 
 <center>
 <img style="width: 80%; height: auto;" src="whyMICA-2.png">
