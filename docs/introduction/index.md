@@ -145,7 +145,7 @@ transfer_money:
 <center>
 <img style="width: 65%; height: auto;" src="whyMICA-3.png">
 <br>
-<div>Obs 3: Multiple Agents vs. One Gigantic LLM Agent</div>
+<div>Obs. 3: Multiple Agents vs. One Gigantic LLM Agent</div>
 </center>
 
 While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
