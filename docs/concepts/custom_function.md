@@ -5,19 +5,21 @@ parent: Concepts
 nav_order: 2
 ---
 
-MICA includes an internal sandbox that can execute custom Python code. You can implement your own arg validation functions, webhooks, or links to a database.
+MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access.
 
-You need to write all of them in a single .py file, and each Python function’s parameter names should be meaningful, ideally matching the arg names defined in the agents.
+You need to write custom function in a .py file and include the .py file in the agent yml through ``tools:'' The names of arguments in custom function should be meaningful, ideally matching the argument names defined in the agents. The language model relies on this mechanism to find corresponding arguments.  
+
 ## Argument Validation
-Here is an example of an argument validation function that checks if the parameter amount_of_money is a positive number
+Here is an example of an argument validation function that checks if the parameter amount_of_money is a positive number.
 ```python
 def validate_money(amount_of_money):
     money = float(amount_of_money)
     return money > 0
 ```
-Note that since all arguments are currently treated as strings by default, you should manually convert them to the required data type when performing comparisons.
+Since all arguments are treated as strings by default in MICA,  they shall be converted to the required data type for further processing.
 
 ## Webhook
+Please briefly explain what the following code is doing. 
 ```python
 def web_query(**kwargs):
     url = "${url}"
@@ -111,6 +113,7 @@ def web_query(**kwargs):
 ```
 
 ## Connect to Database
+Please briefly explain what the following code is doing. 
 ```python
 import sqlite3
 

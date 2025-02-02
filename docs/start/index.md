@@ -5,36 +5,36 @@ nav_order: 5
 has_children: false
 ---
 
-Getting started with Mica is simple. We provide two different options: one is local GUI testing, and the other is deploying the service.
+Getting started with MICA is straightforward.  There are two options: One is through a local GUI frontend; the other is being deployed with docker image.
 
-## Local GUI Testing
+## Local GUI Frontend
 
-You can design and test the bot through the GUI. You will need Python 3.8 or higher. Then, execute the following command to install the required dependencies:
+You can design and test the bot through a local GUI, which requires Python 3.8 or higher.  Please execute the following command to install the required dependencies:
 ```bash
 pip install -r requirement.txt
 ```
-Set the OPENAI KEY in the local variables.
+Set the OPENAI KEY.
 ```bash
 export OPENAI_API_KEY=<your key>
 ```
-Finally, execute the following command to start the service:
+Then, start the service:
 ```bash
 python demo.py
 ```
 You can visit `http://localhost:8760` and start to design.
 ![gui.png](gui.png)
 
-## Local Deployment
+## Docker Image
 
-To deploy locally, ensure your environment has Docker 20+ installed. For stable performance, it's recommended to allocate 2 CPU cores and 8GB of free memory. Then, start with the following command:
+Please ensure your environment has Docker 20+ installed. It is recommended to allocate 2 CPU cores and 8GB of free memory. Start with the following command:
 
 ```bash
 docker run --hostname Mica -d -v /root/data:/data -p 8080:80 --name Mica Mica/pack:latest
 ```
-- `--hostname Mica`: Avoid the hostname of the container changed each time it restarts.
-- `-v /root/data:/data`: Specifies the persistent data storage directory. You can modify it as needed. Failure to configure this will result in data loss after container restart.
-- `-p 8080:80`: Sets the external port. Default external port is 80, if you want to set the port to other like 8080, you can add this param.
-- `--name Mica`: Sets the container name for easy use in docker command.
+- `--hostname Mica`: Setting up the hostname will prevent the container's hostname from changing upon each restart.
+- `-v /root/data:/data`: Specifies the persistent data storage directory. You can modify this path as needed. If not configured, data will be lost after the container restarts.
+- `-p 8080:80`: Specifies the external port mapping. By default, the external port is set to 80. To use a different port (e.g., 8080), include this parameter.
+- `--name Mica`: Assigns a name to the container for easier reference in Docker commands.
 - Two image options are available: `Mica/pack:latest` and `Mica/aio:latest`. The former uses collectors directly from GitHub, while the latter integrates the latest collectors into the image, albeit with a larger size.
 
 After the container is started, you can check the logs to see if the system is running:
@@ -67,10 +67,12 @@ echo "Upgrade Done!"
 exit
 ```
 
-## First Practice
-Below is an implementation of a chatbot that can handle transfer services. You can paste all of the following agents into the same YAML document, such as`agents.yml`, and paste all the code into a single Python script, such as `tool.py`. Once you start the MICA service, you can easily engage in conversation.
+## First Example
+Below is an implementation of a chatbot that can handle the money transfer service. You can copy/paste the following agent code into the same YAML document, e.g., such as `agents.yml`, and the python code into a single python file, e.g., 
+ `tool.py`
+ 
 ### LLM Agent
-The transfer service requires collecting two parameters: the recipient and the transfer amount. Therefore, you can define an LLM agent named “transfer_money” and specify the process in the prompt. Additionally, you can define two parameters. Below is an example of the implementation.
+The transfer service requires collecting two values: the recipient and the transfer amount. Therefore, you can introduce an LLM agent named “transfer_money” and specify the process in its prompt. Additionally, you can include  two parameters.
 ```yaml
 transfer_money:
   type: llm agent
@@ -83,8 +85,8 @@ transfer_money:
     - validate_account_funds
     - submit_transaction
 ```
-### Tool usage
-To ensure that the transfer amount is less than the actual account balance, we need to use a function tool to perform argument validation. Below is the implementation of the function that checks the transfer amount.
+### Tool Use
+To ensure that the transfer amount is less than the actual account balance, we need to use a function tool to perform argument validation. Below is a custom function that retrieves the balance from a database and then checks the transfer amount.
 ```python
 import sqlite3
 
@@ -113,7 +115,7 @@ def validate_account_funds(amount_of_money):
         conn.close()
         return False
 ```
-After the entire transfer process is successfully completed, we typically need to connect to a database to perform the actual transfer operation. Here, we can directly implement a Python function to accomplish this task. The LLM agent can automatically determine whether the transfer information is confirmed, and once confirmed, it will automatically call this function to submit the transaction information.
+Once the transfer request is confirmed, we usually connect to a database to perform the actual transfer operation. Here, we implement a Python function to accomplish this task. The LLM agent will automatically call this function to submit the transaction information.
 ```python
 def submit_transaction(amount_of_money, recipient):
     conn = connect_db()
@@ -139,21 +141,20 @@ def submit_transaction(amount_of_money, recipient):
     print(f"Success. Money: {amount_of_money}, recipient: {recipient}")
 ```
 ### Ensemble Agent
-You can define an Ensemble Agent to manage the scheduling of agents. Of course, since there is currently only one agent, you don’t have to implement the Ensemble Agent. However, if your chatbot includes multiple agents and needs to respond to different user intents, you will need an Ensemble Agent that contains these agents.
+You can define an Ensemble Agent to manage and coordinate the activation of multiple agents. In a simple scenario, such as a money transfer example with only one agent, an Ensemble Agent is not required. However, if your chatbot includes multiple agents that must handle various user intents, an Ensemble Agent becomes essential. It serves as a central entity that organizes and directs the interactions between agents. For instance, if there is a Knowledge Base (KB) agent responsible for answering user queries, the Ensemble Agent would ensure seamless coordination between it and other agents.
 ```yaml
 meta:
   type: ensemble agent
   description: You can select an agent to respond to the user’s question.
   contain:
     - transfer_money
+    - kb
   fallback: default_agent
-  steps:
-    - call: transfer_money
   exit:
     - policy: "After 5 seconds, give a closure prompt: Is there anything else I can help you with?  After another 30 seconds, then leave."
 ```
-### Add an entrypoint
-`main` is a special agent that does not have a `type` attribute. It serves as the entry point for the entire chatbot. Its steps can invoke any agent, but most of the time, you can call the Ensemble Agent to switch between different agents.
+### Which Agent to Start
+As the `agent.yml` file contains multiple agents, it is necessary to designate an initial agent to start the process. The main agent serves this purpose, acting as the entry point for the chatbot. Its steps can invoke any agent; however, in most cases, it calls an Ensemble agent to coordinate interactions among different agents.
 ```yaml
 main:
   steps:
