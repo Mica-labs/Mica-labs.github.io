@@ -16,8 +16,7 @@ By their nature, the tasks performed by agents are often easier to express in na
 
 example here
 
-Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly. 
-
+Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly.
 <center>
 <img style="width: 65%; height: auto;" src="whyMICA-2.png">
 <br>
