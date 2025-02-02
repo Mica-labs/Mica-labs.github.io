@@ -5,7 +5,7 @@ parent: Concepts
 nav_order: 1
 ---
 
-An agent is the building block of MICA. You can create different agents based on the tasks you would like to assign to them.  In MICA, there are four types of agents: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve customers collectively.  KB and LLM Agents are atomic meaning they cannot contain other agents.  Ensemble Agents can consist of multiple atomic agents.  Flow Agents can be both.
+Agents are the building blocks of MICA. You can create different kinds of agents based on the tasks you would like to assign to them.  There are four types of agents in MICA: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks. LLM Agents encode business logic and workflows using natural language. Flow Agents enable traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve users collectively.  KB and LLM Agents are atomic meaning they cannot contain other agents.  Ensemble Agents are composite agents.  Flow Agents can be both.
 <center>
 <img style="width: 30%; height: auto;" src="structure.png">
 <br>
@@ -13,7 +13,7 @@ An agent is the building block of MICA. You can create different agents based on
 </center>
 
 ## KB Agent
-A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks. If you have FAQ questions, documents, or websites, and want your chatbot to answer user questions based on them, you only need to declare a KB Agent. That is it.  The agent will handle all the tehnical details for you, including vectorization, indexing, RAG, etc. Here is an example:
+A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks. If you have FAQ questions, documents, or websites, and want your chatbot to answer user questions based on them, you only need to declare a KB Agent. The agent will handle all the tehnical details for you, including vectorization, indexing, RAG, etc. Here is an example:
 
 ```yaml
 kb:   # agent name
@@ -26,16 +26,16 @@ kb:   # agent name
   file: /path/to/kb/files
 ```
 
-The agent name can be any string that complies with YAML formatting. This KB Agent contains four attributes:
+The agent name can be any string that complies with YAML. This KB Agent contains four attributes:
 
 - `faq`: You can define specific questions and their corresponding answers. Use each question as a key and its answer as the value.
-- `web`: You can list all relevant websites here. Our engine will automatically crawl the content of these websites, segment it into embeddings, and use it as part of the knowledge base.
-- `file`: This field includes files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place all files there. The engine will digest all the content in this directory and put it in the knowledge base.
+- `web`: You can list all relevant websites here. Our engine will automatically crawl the content of these websites and use it as part of the knowledge base.
+- `file`: This field includes files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place files there. The engine will digest all the content in this directory and put it in the knowledge base.
 
-For each user input, the KB Agent will first perform embeddings, rank them by similarity, and select the most similar text segments for answer generation. These answers could be passed to other agents (e.g., Ensemble Agent) to determine whether they can be used. 
+Given a user utterance, the KB Agent will determine if it is a question and if it can be answered by the knowledge base it builds.
 
 ## LLM Agent
-LLM Agents serve as the fundamental building block for task-oriented conversations. It describes domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate. 
+LLM Agents serve as the fundamental building block for task-oriented conversations. It specifies domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate. 
 
 ```yaml
 transfer_money:
