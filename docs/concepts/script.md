@@ -5,7 +5,7 @@ parent: Concepts
 nav_order: 2
 ---
 
-MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access
+MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access.
 
 You need to write custom function in a .py file and include the .py file in the agent yml through ``tools:'' The names of arguments in custom function should be meaningful, ideally matching the argument names defined in the agents. The language model relies on this mechanism to find corresponding arguments.  
 
