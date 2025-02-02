@@ -35,7 +35,7 @@ The agent name can be any string that complies with YAML. This KB Agent contains
 Given a user utterance, the KB Agent will determine if it is a question and if it can be answered by the knowledge base it builds.
 
 ## LLM Agent
-LLM Agents serve as the fundamental building block for task-oriented conversations. It specifies domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate. 
+LLM Agents serve as the fundamental building block for task-oriented conversations. It specifies domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate.  The following example shows an LLM Agent to handle money transfer. 
 
 ```yaml
 transfer_money:
@@ -54,14 +54,14 @@ transfer_money:
     - validate_account_funds
     - submit_transaction
 ```
-The above is an example of using an LLM Agent to handle money transfer. A typical LLM Agent includes the following attributes:
+A typical LLM Agent includes the following attributes:
 
-- `description`: This field provides a brief explanation of the agent’s functionality. Based on the conversation context, LLM will use this field to determine whether this agent should be used for the response or not.
-- `prompt`: This field details the process for the agent. If certain functions need to be called during the process, the prompt should indicate when and which function to call.
-- `args` (optional): If you need to extract specific information (slots) from the conversation, you could fill out this field. Currently, all slots are strings.
+- `description`: This field provides a brief explanation of the agent’s functionality. Based on the conversation context, this field is used to determine whether this agent should be used for the response or not.
+- `prompt`: This field details how the agent will perform.  If a certain function needs to be called during the process, the prompt should indicate when and which function to call.
+- `args` (optional): If you need to pass or extract specific information (such as state, slot, variable, or any other relevant data) between the agent and others, you may populate this field. Please note that, at present, all variables are treated as strings.
 - `uses` (optional): This lists all the function names used in the prompt. These functions can be implemented in a separate Python script.
 
-When calling the LLM Agent, MICA will automatically fill in all the args based on the defined content and call the corresponding Python functions based on the LLM’s response. This process continues until the LLM Agent’s task is completed or the user changes his mind and needs a different agent to handle his request. 
+When calling an LLM Agent, MICA will automatically fill in all the args based on the defined content and call the corresponding Python functions. This process continues until the LLM Agent’s task is completed or the user changes his mind and needs a different agent to handle his request. 
 
 ## Flow Agent
 The Flow Agent is suitable for fixed, sequential business logic.  It enables flow control commonly existing in traditional programming language using a YAML format.
