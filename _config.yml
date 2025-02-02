@@ -103,8 +103,8 @@ heading_anchors: true
 
 # Aux links for the upper right navigation
 aux_links:
-  "Mica Docs on GitHub":
-    - "https://github.com/Mica-labs/Mica-labs.github.io"
+  "MICA on GitHub":
+    - "https://github.com/siruizeng011/llmChatbot"
 
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: false
@@ -129,7 +129,7 @@ liquid:
 back_to_top: true
 back_to_top_text: "Back to Top"
 
-footer_content: "Copyright &copy; 2024 <a href=\"https://Mica.github.io/\">Mica</a>"
+footer_content: "Copyright &copy; 2024 <a href=\"https://Mica.github.io/\">MICA</a>"
 
 # Footer last edited timestamp
 last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
