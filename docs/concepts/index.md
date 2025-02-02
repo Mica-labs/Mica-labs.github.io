@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Concepts
+title: Core Concepts
 nav_order: 4
 has_children: true
 ---
