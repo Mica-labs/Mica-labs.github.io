@@ -16,9 +16,10 @@ def validate_money(amount_of_money):
     money = float(amount_of_money)
     return money > 0
 ```
-Note that since all arguments are currently treated as strings by default, you should manually convert them to the required data type when performing comparisons.
+Since all arguments are treated as strings by default in MICA,  they shall be converted to the required data type for further processing.
 
 ## Webhook
+Please briefly explain what the following code is doing. 
 ```python
 def web_query(**kwargs):
     url = "${url}"
@@ -112,6 +113,7 @@ def web_query(**kwargs):
 ```
 
 ## Connect to Database
+Please briefly explain what the following code is doing. 
 ```python
 import sqlite3
 
