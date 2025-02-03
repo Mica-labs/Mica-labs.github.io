@@ -5,9 +5,7 @@ parent: Concepts
 nav_order: 3
 ---
 
-To implement Flow Agent's control logic and ensure that conversations proceed according to the predefined flows, MICA defines a complete set of flow structures similar to traditional programming languages. It is simple and easy to understand while being fully compatible with the YAML specification.  
-
-Here is a Flow Agent example that includes condition structures. 
+To ensure that conversations proceed according to the predefined flows, MICA defines a complete set of control flow structures similar to traditional programming languages. Here is an example of Flow Agent that includes conditional statements. 
 ```yaml
 shopping_flow:
   type: flow agent
@@ -55,45 +53,46 @@ shopping_flow:
     - end
 ```
 
-All the process statements are written under `<flow_name>.steps`, including subflow, user, bot, conditional control, loop, and call.
+The statements are written under `steps`, including subflow, user, bot, conditional control, loop, and call.
 
 ## Subflow
-A subflow is similar to a single Python function and consists of a series of steps. A subflow is enclosed by special keywords, `"begin"` and `"end"` (if there is only one subflow, `"begin"` and `"end"` can be omitted).  
+A subflow is a structure that is defined and can be called inside another flow.  It shares the arguments with the flow.   A subflow is enclosed by special keywords, `"begin"` and `"end"` (if there is only one subflow, `"begin"` and `"end"` can be omitted).  
 
-You can also assign a unique label to the subflow by changing `begin` to `begin: <label>`.  
+You can assign a label to the subflow by changing `begin` to `begin: <label>`.  
 
-Note that when multiple subflows exist, you must call other subflows within the first subflow for them to execute. This is because, by default, Flow only executes the first subflow.
+When multiple subflows are present, you must explicitly invoke additional subflows within the first subflow to ensure their execution. By default, Flow only executes the first subflow unless others are explicitly called.
 
 ```yaml
 greeting:
   type: flow agent
   steps:
     - begin
-    - bot: What can I do for you?
-    - call: goodbye
+    - bot: How are you? 
+    - call: introduction
     - end
     
-    - begin: goodbye
-    - bot: Goodbye!
+    - begin: introduction
+    - bot: I am a service bot. 
     - end
 ```
 
-The example above includes two different ways to define a subflow. When the agent executes, MICA first locates the initial subflow and then sequentially executes the steps within it. Since there is a `call` statement, it will automatically invoke the `goodbye` subflow.
+The example above includes two subflows. When the agent executes, MICA locates the first subflow and then sequentially executes the steps within it. Since there is a `call` statement, it will invoke the `goodbye` subflow after the bot replies ``How are you?''
+
 
 ## Bot
 `Bot` is a keyword that intuitively represents the agent's next response. Currently, `Bot` only supports text output. You can use a `Bot` step anywhere within a subflow and can also write multiple consecutive bot responses.  
 
-Additionally, you can use `${[agent_name].<arg_name>}` to reference any argument value from any agent. If `agent_name` is omitted, it refers to an argument within the current agent.
+Additionally, you can use `${[agent_name].<arg_name>}` to reference argument value from any agent that has been called. If `agent_name` is omitted, it refers to an argument within the current agent.
 ```yaml
 greeting:
   type: flow agent
   args:
     - user
   steps:
+    - call: get_user_name
     - set:
-        user: "Honored guest"
-    - bot: Hello!
-    - bot: Wish you a good mood, ${user}!
+        user:get_user_name.user_name
+    - bot: Hello, ${user}! or ${get_user_name.user_name}! 
 ```
 
 ## User
@@ -111,10 +110,10 @@ greeting:
 
 This example means that after the bot says, **"What can I do for you?"**, it waits for the user's input. Then, regardless of what the user says (unless they want to exit the flow), it directly responds with **"I'm willing to tell you what I can do."**  
 
-However, in practice, we usually need to respond conditionally based on the user's intent. Therefore, we need conditional statements.
+However, in practice, we usually need to respond conditionally based on the user's intent. Therefore, we introduce  conditional statements.
 
 ## Condition
-Conditional statements allow selecting the next action based on different conditions. The condition can be either the user's intent or the value of a parameter.  
+Conditional statements allow selecting the next action based on different conditions. The condition can be either the user's intent or a value of argument.  
 
 You can refer to this example:
 ```yaml
@@ -134,9 +133,9 @@ book_restaurant:
         - call: collect_booking_information
       else:
         - bot: Sorry, I cannot understand what you mean.
-        - return: error, cannot understand user's intent
+        - return: error, cannot understand user's intent.
 ```
-This is a basic `if` structure. Below are some key concepts:  
+This is a basic `if` condition. 
 
 - `if` / `else if`: Conditional statements that support checking both user intent and argument values.  
   - When using the user's intent as a condition, you must use the format:  
@@ -150,40 +149,43 @@ This is a basic `if` structure. Below are some key concepts:
       - `re.match(<regular expression>, <arg_name>)`  
   - When multiple conditions exist, you can combine them using `and` or `or`.  
 
-- `then`: Specifies the actions to execute when the `if` condition is `True`. This is a list where you can define multiple flow steps. After all steps are executed, if there is no `return` statement, execution continues with the next statement in the current subflow.  
+- `then`: Specifies the actions to execute when the `if` condition is `True`. This is a list where you can define multiple flow steps. After all steps are executed, if there is no `return` statement, the execution continues with the next statement in the current subflow.  
 
-- `else` *(optional)*: Specifies the actions to execute when the `if` condition is `False`. This is also a list where multiple flow steps can be defined and executed sequentially.  
+- `else` *(optional)*: Specifies the actions to execute when the `if` condition is `False`. This is also a list where multiple steps can be defined and executed sequentially.  
 
 - `return` *(optional)*:  
   - `<success/error>, [msg]`: Exits the current subflow with either a `succeed` or `error` status.  
   - `msg`: Describes the success or failure message to inform other agents about the current agent’s status.  
   - MICA supports two statuses:  
     - `succeed`: Indicates a normal exit.  
-    - `error`: Indicates an abnormal exit. The `msg` can help other agents understand the agent’s state for better scheduling in the next steps.
+    - `error`: Indicates an abnormal exit. The `msg` can help other agents understand the agent’s state.
 
 ## Set
-Sometimes, you need to pass parameters or manually assign values to arguments. In such cases, you can use the `set` keyword.
+Sometimes, you need to pass or manually assign values to arguments. In such cases, you can use the `set` keyword. Assume we have an LLM agent, `web_searcher`, that takes an argument `restaurant_name` and returns the description of that restaurant. 
 ```yaml
 recommend_restaurant:
   type: flow agent
   args:
-    - restaurant_name
+    - restaurant
     - restaurant_description
   steps:
     - user
     - if: the user claims "Recommend a fast-food restaurant."
-      then: 
+      then:
+         - set:
+            restaurant: "In-N-Out"
+        - call: web_searcher
+          args:
+            - restaurant_name: restaurant
         - set:
-            restaurant_name: "In-N-Out"
-            restaurant_description: web_searcher.get_description
-        - bot: Why not try ${restaurant_name}
+            restaurant: "In-N-Out"
+            restaurant_description: web_searcher.description
+        - bot: Why not try ${restaurant}: ${restaurant_description}
 ```
 
-Here, the `set` keyword can be followed by any argument of any agent. You can also assign the value of an argument from one agent to any argument of another agent.  
-
-In the example above, we set two argument values:  
+The `set` keyword can reference the value of an argument from a previously invoked agent. In the example above, we set two argument values:  
 - `<arg_name>: <str>`: Assigns a specific value to this argument. If it's an argument from another agent, use `<agent_name>.<arg_name>`.  
-- `<one_arg_name>: <another_arg_name>`: Assigns the value of another argument to this argument. Similarly, you can use `<agent_name>.<arg_name>` to reference an argument from any agent.
+- `<one_arg_name>: <another_arg_name>`: Assigns the value of another argument to this argument. Similarly, you can use `<agent_name>.<arg_name>` to reference an argument from another agent.
 
 ## Label & Next
 Sometimes, we need to jump to another subflow for execution or return to an earlier point within a subflow. In such cases, we use the `label` keyword for positioning and `next` to specify the target.
