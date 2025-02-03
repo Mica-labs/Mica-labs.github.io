@@ -188,7 +188,7 @@ The `set` keyword can reference the value of an argument from a previously invok
 - `<one_arg_name>: <another_arg_name>`: Assigns the value of another argument to this argument. Similarly, you can use `<agent_name>.<arg_name>` to reference an argument from another agent.
 
 ## Label & Next
-Sometimes, we need to jump to another subflow for execution or return to an earlier point within a subflow. In such cases, we use the `label` keyword for positioning and `next` to specify the target.
+In certain scenarios, it is necessary to transition to another subflow for execution or return to a previous point within a subflow. To achieve this, the label keyword is used for positioning, while next specifies the target destination.
 ```yaml
 book_restaurant:
   type: flow agent
