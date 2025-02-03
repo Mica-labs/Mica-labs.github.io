@@ -14,6 +14,7 @@ shopping_flow:
   description: This is an agent that assists users in placing orders.
   args:
     - discount
+    - is_new_customer
   steps:
     - begin
     - bot: Hi. I'm your shopping assistant. What can I do for you today?
@@ -44,7 +45,7 @@ shopping_flow:
     - end
 
     - begin: get_discount
-    - if: meta.is_new_customer == True
+    - if: is_new_customer == True
       then:
         - set: 
             discount: 0.9

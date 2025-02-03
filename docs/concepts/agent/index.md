@@ -71,6 +71,7 @@ shopping_flow:
   description: This is an agent that assists users in placing orders.
   args:
     - discount
+    - is_new_customer
   steps:
     - begin
     - bot: Hi. I'm your shopping assistant. What can I do for you today?
@@ -78,8 +79,8 @@ shopping_flow:
     - user
     - if: the user claims "Is there any discount?"
       then:
-        - call: discount
-        - if: discount.success
+        - next: get_discount
+        - if: get_discount.success
           then:
             - bot: We are glad to tell you that your get 10% discount.
           else:
@@ -96,12 +97,12 @@ shopping_flow:
             - contact: shipment.contact
       else:
         - bot: "You can ask me something like \"Any discount?\" or \"Start shopping.\"."
-        - call: start
+        - next: start
           tries: 3
     - end
 
-    - begin: discount
-    - if: meta.is_new_customer == True
+    - begin: get_discount
+    - if: is_new_customer == True
       then:
         - set: 
             discount: 0.9
