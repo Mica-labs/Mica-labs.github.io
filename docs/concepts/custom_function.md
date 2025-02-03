@@ -7,10 +7,10 @@ nav_order: 2
 
 MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access.
 
-You need to write custom function in a .py file and include the .py file in the agent yml through ``tools:'' The names of arguments in custom function should be meaningful, ideally matching the argument names defined in the agents. The language model relies on this mechanism to find corresponding arguments.  
+You need to write custom function in a `.py` file and include the `.py` file in the agent yml through `tools:` The names of arguments in custom function should be meaningful, ideally matching the argument names defined in the agents. The language model relies on this mechanism to find corresponding arguments.  
 
 ## Argument Validation
-Here is an example of an argument validation function that checks if the parameter amount_of_money is a positive number.
+Here is an example of an argument validation function that checks if the parameter `amount_of_money` is a positive number.
 ```python
 def validate_money(amount_of_money):
     money = float(amount_of_money)
@@ -18,102 +18,56 @@ def validate_money(amount_of_money):
 ```
 Since all arguments are treated as strings by default in MICA,  they shall be converted to the required data type for further processing.
 
-## Webhook
-Please briefly explain what the following code is doing. 
+## Web Query
+When you need to interact with an external API, you can implement a function similar to the one below. The parameters can be arguments defined within the bot. Meanwhile, MICA supports passing the response from the request back to the bot. 
+
+Note that the content of `print()` will not be used as the bot's response. It is only transmitted to GPT as the execution result when needed. If you want to generate a bot response based on the web query's response, you need to include this response in the `return` statement. 
+
+Additionally, if you need to update the value of certain arguments, you can return the argument name and its updated value in the specified format.
+
 ```python
-def web_query(**kwargs):
-    url = "${url}"
-    label = "${label}"
-    headers = ${headers}
-    params = ${request_body}
-    text = "${request_body_text}"
-    request_type = "${request_type}"
-    request_body_type = "${request_body_type}"
+import requests
+def web_query(arg1, arg2):
+    method = ["POST", "GET", "PUT", "DELETE", "PATCH"]  # Choose according to your webhook API.
 
-    response_type = "${response_type}"
-    response_handle = ${response_handle}
-    default_error_msg = "抱歉，查询失败。"
-
-    import requests
-    import json
-    import jsonpath
-    from llmChatbot.event import BotUtter, SetSlot
-
-    def request(url, params):
-        response = None
-        try:
-            if request_body_type == "application/json":
-                response = requests.request(request_type, url, data=json.dumps(params), headers=headers)
-            else:
-                response = requests.request(request_type, url, data=params, headers=headers)
-        except Exception as e:
-            print("Fail to get response from webhook. ", e)
-        return response
-
-    def __interpolator_text(response, states):
-        import re
-        try:
-            text = re.sub(r"{([^\n{}]+?)}", r"{0[\1]}", response)
-            text = text.format(states)
-            if "0[" in text:
-                # regex replaced tag but format did not replace
-                # likely cause would be that tag name was enclosed
-                # in double curly and format func simply escaped it.
-                # we don't want to return {0[SLOTNAME]} thus
-                # restoring original value with { being escaped.
-                return response.format({})
-            return text
-        except Exception as e:
-            print("cannot find states", e)
-            return response
-
-    def parse(json_dict, value):
-        return jsonpath.jsonpath(json_dict, value)
-
-    if request_body_type == "text/plain":
-        text = __interpolator_text(text, kwargs)
-
-    if request_body_type == "text/plain":
-        response = request(url, text)
-    else:
-        response = request(url, params)
-    result = []
-    # 处理response
-    if response is None or (response is not None and response.status_code >= 400):
-        if response_handle is not None:
-            result.append(BotUtter(response_handle.get("error_msg")))
-        else:
-            result.append(BotUtter(default_error_msg))
-
-
-    if response_type == "direct":
-        result.append(BotUtter(response.text))
-        return result
-
-    if response_type == "not":
-        return []
-
-    if response_handle is not None:
-        if response is not None and response.status_code == 200:
-            text = response_handle.get("text")
-            for key, value in response_handle.get("parse").items():
-                mapping = parse(response.json(), value)
-                if not mapping:
-                    result.append(BotUtter(response_handle.get("error_msg")))
-                    break
-                if len(mapping) == 0:
-                    continue
-                if len(mapping) == 1:
-                    result.append(SetSlot(key, mapping[0]))
-                else:
-                    result.append(SetSlot(key, mapping))
-            result.append(BotUtter(text))
-
-        return result
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    url = "http://target_url"
+    params = {"arg1": arg1, "arg2": arg2}
+    timeout = 30
+    verify = True
+    
+    request_kwargs = {
+        'url': url,
+        'params': params,
+        'headers': headers,
+        'timeout': timeout,
+        'verify': verify
+    }
+    
+    try:
+        response = requests.request(method, **request_kwargs)
+        response.raise_for_status()
+        
+        # The content printed to stdout will not be displayed in the bot but will be used as a response to GPT when GPT calls tools.
+        print(response.text) 
+        
+        if response.json():
+            # You can pass external information back to the bot as an argument value.
+            return [{"slot_name": "<agent_name>.<arg_name>", "value": response.json().get("updated_arg")}] 
+        
+        # If it is a string, it will be used as the bot's response.
+        return response.text  
+    except requests.RequestException as e:
+        print(f"Request failed: {str(e)}")
+        raise
 ```
 
 ## Connect to Database
-Please briefly explain what the following code is doing. 
+Another common scenario is connecting to a database to validate or store argument values. The following example demonstrates the Python code required for a simple transfer bot.
+
+The function `connect_db()` establishes a connection to an `sqlite3` database. The function `validate_account_funds(amount_of_money)` checks whether the account balance is greater than the transfer amount. Finally, `submit_transaction(amount_of_money, recipient)` executes the transfer operation in the database.
 ```python
 import sqlite3
 
