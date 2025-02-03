@@ -52,7 +52,7 @@ main:
 As a comparison, the Swarm implementation is [here](https://github.com/openai/swarm/tree/main/examples/airline).
 
 <details>
-  <summary>Swarm Implementation</summary>
+  <summary>Partial Implementation of Swarm</summary>
   <pre><code>
 def transfer_to_flight_modification():
     return flight_modification
