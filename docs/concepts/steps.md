@@ -5,9 +5,9 @@ parent: Concepts
 nav_order: 3
 ---
 
-To implement Flow's process control and ensure that conversations proceed sequentially according to the predefined logic, MICA defines a complete set of structures similar to a programming language. It is very simple and easy to understand while being fully compatible with the YAML specification.  
+To implement Flow Agent's control logic and ensure that conversations proceed according to the predefined flows, MICA defines a complete set of flow structures similar to traditional programming languages. It is simple and easy to understand while being fully compatible with the YAML specification.  
 
-Here is a Flow example that includes all process structures. Below, we will provide a detailed explanation of each part.
+Here is a Flow Agent example that includes condition structures. 
 ```yaml
 shopping_flow:
   type: flow agent
@@ -21,8 +21,8 @@ shopping_flow:
     - user
     - if: the user claims "Is there any discount?"
       then:
-        - next: discount
-        - if: discount.success
+        - next: get_discount
+        - if: get_discount.success
           then:
             - bot: We are glad to tell you that your get 10% discount.
           else:
@@ -43,7 +43,7 @@ shopping_flow:
           tries: 3
     - end
 
-    - begin: discount
+    - begin: get_discount
     - if: meta.is_new_customer == True
       then:
         - set: 
@@ -54,7 +54,7 @@ shopping_flow:
     - end
 ```
 
-All process control statements are written under `<flow_name>.steps`, including subflow, user, bot, conditional control, loop, and call.
+All the process statements are written under `<flow_name>.steps`, including subflow, user, bot, conditional control, loop, and call.
 
 ## Subflow
 A subflow is similar to a single Python function and consists of a series of steps. A subflow is enclosed by special keywords, `"begin"` and `"end"` (if there is only one subflow, `"begin"` and `"end"` can be omitted).  
