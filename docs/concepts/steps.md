@@ -188,7 +188,7 @@ The `set` keyword can reference the value of an argument from a previously invok
 - `<one_arg_name>: <another_arg_name>`: Assigns the value of another argument to this argument. Similarly, you can use `<agent_name>.<arg_name>` to reference an argument from another agent.
 
 ## Label & Next
-In certain scenarios, it is necessary to transition to another subflow for execution or return to a previous point within a subflow. To achieve this, the label keyword is used for positioning, while next specifies the target destination.
+In certain scenarios, it is necessary to transition to another subflow for execution or return to a location within a subflow. To achieve this, the `label` keyword is used for positioning, while `next` specifies the target destination.
 ```yaml
 book_restaurant:
   type: flow agent
@@ -202,8 +202,8 @@ book_restaurant:
         tries: 3
 ```
 In this example: 
-- `label`: Defines a label name. Within the same flow, label names should be unique to avoid conflicts.
-- `next`: Specifies the label to jump to next. This label can be defined in any subflow of the agent or as the subflow's label (defined using `begin: <label>`).  
+- `label`: Labels a location. Within the same flow, the label names should be unique to avoid conflict.
+- `next`: Specifies the location to jump to.  The location can be identified in any subflow of the agent or the beginning of a subflow (defined using `begin: <label>`).  
 - `tries` *(optional)*: Specifies the maximum number of times this statement can be executed. If not specified, it defaults to unlimited retries.
 
 ## Call
@@ -228,15 +228,15 @@ book_restaurant:
     - call: search_recommendation
       args:
         preference: preference
-    - bot: "We found some restaurants you may like: ${search_recommend.restaurant}"
+    - bot: "We found some restaurants you may like: ${search_recommendation.restaurant}"
     - user
     - if: the user claims "Great. Can you help me make a reservation?"
     - call: collect_customers_info
 ```
 
-Here, `search_recommendation` is a Python function. You need to implement the corresponding Python code and define the Python script name in the `tools` directory.  
+Here, `search_recommendation` is a Python function. You need to implement the corresponding Python code and define the function in the `search.py` file.  
 
-Below is a simulated Python implementation. For more details on Python implementation guidelines, refer to [here](/docs/concepts/custom_function).
+Below is a simulated Python implementation. For details on Python implementation guidelines, please refer to [here](/docs/concepts/custom_function).
 
 ```python
 import random
