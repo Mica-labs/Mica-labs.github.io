@@ -146,7 +146,7 @@ You can define an Ensemble Agent to manage and coordinate the activation of mult
 meta:
   type: ensemble agent
   description: You can select an agent to respond to the user’s question.
-  contain:
+  contains:
     - transfer_money
     - kb
   fallback: default_agent

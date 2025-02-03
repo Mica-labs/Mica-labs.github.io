@@ -39,7 +39,7 @@ Lost Baggage:
 
 Meta:
   type: ensemble agent
-  contain:
+  contains:
     - Flight Cancel
     - Flight Change
     - Lost Baggage
