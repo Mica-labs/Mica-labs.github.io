@@ -388,5 +388,5 @@ While it is possible to put all the constraints, all the business logics and kno
 
 In summary, MICA considers these observations and advocates for an agent centric framework as the future of agent design. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing a critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
-[Try and Explore MICA Today!](https://github.com/siruizeng011/llmChatbot/tree/dev)
+[Try and Explore MICA Today!](https://github.com/Mica-labs/MICA)
 

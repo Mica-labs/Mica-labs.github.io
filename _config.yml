@@ -104,7 +104,7 @@ heading_anchors: true
 # Aux links for the upper right navigation
 aux_links:
   "MICA on GitHub":
-    - "https://github.com/siruizeng011/llmChatbot"
+    - "https://github.com/Mica-labs/MICA"
 
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: false
