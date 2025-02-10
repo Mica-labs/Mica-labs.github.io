@@ -172,7 +172,7 @@ recommend_restaurant:
     - user
     - if: the user claims "Recommend a fast-food restaurant."
       then:
-         - set:
+        - set:
             restaurant: "In-N-Out"
         - call: web_searcher
           args:
@@ -180,7 +180,7 @@ recommend_restaurant:
         - set:
             restaurant: "In-N-Out"
             restaurant_description: web_searcher.description
-        - bot: Why not try ${restaurant}: ${restaurant_description}
+        - bot: "Why not try ${restaurant}: ${restaurant_description}"
 ```
 
 The `set` keyword can reference the value of an argument from a previously invoked agent. In the example above, we set two argument values:  
