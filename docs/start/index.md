@@ -24,47 +24,84 @@ python demo.py
 You can visit `http://localhost:8760` and start to design.
 ![gui.png](gui.png)
 
-## Docker Image
+## GUI Feature Introduction
+The local GUI provides features for online editing, testing, loading bots from local files, and saving bots to local storage.
 
-Please ensure your environment has Docker 20+ installed. It is recommended to allocate 2 CPU cores and 8GB of free memory. Start with the following command:
+### Real-time Editing
+You can customize your bot on the left side of the page. After editing, click the `Generate from Text` button at the top right to generate the bot.  
+![generate-sussess.png](generate-sussess.png)  
+If the generation fails, an alert will be displayed. Please check if your agents' format is correct.  
+![generate-error.png](generate-error.png)  
+
+### Load from Local Examples
+You can also load a bot from local examples and modify it as needed. After selecting the bot you want to load, you can start a conversation immediately or modify it further. Note that after making changes, you need to click `Generate from Text` to regenerate the bot.  
+![Load example bot](load-from-disk.png)  
+
+### Conversation and State
+Once the bot is generated, you can start a conversation with it. Enter your message in the `You` dialog box and press `Enter` to send it. The `Clear the conversation` button clears the conversation history and also resets the `States` panel. The `States` panel displays the current argument values for each agent in the bot.  
+![img.png](chat.png)  
+
+### Save to Local
+You can save all bots from the left panel to a local file. Clicking the `Save to...` button will save the current bot information (excluding conversation and state data) to the local folder `./llmChatbot/demo-output`. A folder named after the bot will be created, with `agents.yml` storing the agents' information and `tools.py` storing the Python code.
+
+## Locally Deployment
+If you need to deploy the bot as a service, you can set up a server using the following steps.  
+First, ensure your Python version is 3.8 or higher. The process is similar to the GUI setup:
 
 ```bash
-docker run --hostname Mica -d -v /root/data:/data -p 8080:80 --name Mica Mica/pack:latest
+pip install -r requirement.txt
 ```
-- `--hostname Mica`: Setting up the hostname will prevent the container's hostname from changing upon each restart.
-- `-v /root/data:/data`: Specifies the persistent data storage directory. You can modify this path as needed. If not configured, data will be lost after the container restarts.
-- `-p 8080:80`: Specifies the external port mapping. By default, the external port is set to 80. To use a different port (e.g., 8080), include this parameter.
-- `--name Mica`: Assigns a name to the container for easier reference in Docker commands.
-- Two image options are available: `Mica/pack:latest` and `Mica/aio:latest`. The former uses collectors directly from GitHub, while the latter integrates the latest collectors into the image, albeit with a larger size.
-
-After the container is started, you can check the logs to see if the system is running:
+Set the OpenAI API key:
 ```bash
-docker logs Mica
+export OPENAI_API_KEY=<your key>
 ```
-
-When you see the following log, it means the system is running:
+Finally, start the service:
 ```bash
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- System is ready! You can access the service as follows:
-     URL: http://172.17.0.36
-     User: xxx@xxxx
-     Password: xxx
+python server.py
+```
+If you want to run the service in the background, you can use the following command. All logs will be stored in server.log in the current directory.
+```bash
+nohup python -u server.py > server.log 2>&1 &
+tail -f server.log
+```
+## Chat Service
+We provide the following APIs for loading bots and handling chat interactions.
 
- Any question or suggestion, please reach out to xxx@xxx.us! Enjoy!!!
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### Load Bot
+`POST http://localhost:5001/v1/deploy`
+
+This API allows you to load your bot.
+
+**Request Body**
+- **file** (file) *Required*: A ZIP file where the filename serves as `bot_name`. The ZIP file must contain `agents.yml` with all agents’ information (Required). It may also include a Python script `tools.py` (Optional).
+
+**Response**
+Returns a JSON object:
+```json
+{
+ "status": 200,
+ "message": "Already deployed project: {bot_name}"
+}
 ```
 
-If you want to upgrade the system, you can use the following command:
-```
-#!/bin/bash
+### Chat API
+`POST http://localhost:5001/v1/chat`
 
-echo "Upgrade ..."
-docker pull Mica/pack:latest
-docker stop Mica
-docker rm Mica
-docker run --hostname Mica -d -v /root/data:/data -p 8080:80 --name Mica Mica/pack:latest
-echo "Upgrade Done!"
-exit
+This API allows a user to send a message to a specified bot and receive a response.
+
+**Request Body**
+- **sender** (string) *Required*: A unique ID for each user.
+- **message** (string) *Required*: The message sent by the user.
+
+**Headers**
+- **bot_name** (string) *Required*: The name of the bot to interact with.
+
+**Response**
+Returns a JSON array, potentially containing multiple responses:
+```json
+[{
+  "text": "bot response"
+}]
 ```
 
 ## First Example
