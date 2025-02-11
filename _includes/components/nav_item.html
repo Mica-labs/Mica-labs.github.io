@@ -1,6 +1,7 @@
 <ul class="nav-list">
     {% for node in include.pages %}
-    <li class="nav-list-item">
+    <!--  auto expand the nav items if -->
+    <li class="nav-list-item active">
         {%- assign root_pages = include.all | where: "parent", node.title -%}
         {%- if node.has_children -%}
             {%- if root_pages.size > 0 -%}
