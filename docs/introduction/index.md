@@ -247,7 +247,7 @@ if __name__ == "__main__":
 </code></pre>
 </details>
 
-Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly.
+Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
 
 
 <center>
@@ -258,7 +258,7 @@ Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and
 
 Service bots are traditionally developed with rigid flow control.  As long as you would like to give a little bit more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
 
-For example, when we want to implement a money transfer chatbot, since traditional flow control tool with LLM support ([Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot)) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete this task. In contrast, with MICA, you can design the chatbot in under 40 lines.
+Suppose we want to implement a money transfer chatbot.  Using a mixture of traditional flow controls and LLM support, ([Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot)) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete the task. Developing and testing this code is a challenging task, not to mention the subsequent maintenance and upgrade efforts.  In contrast, you only need ~40 lines in MICA.
 
 <details>
   <summary>Show the RASA code</summary>
