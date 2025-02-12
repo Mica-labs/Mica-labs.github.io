@@ -4,8 +4,7 @@ title: Agent
 parent: Concepts
 nav_order: 1
 ---
-
-An agent is the building block of MICA. You can create different agents based on the tasks you would like to assign to them.  In MICA, there are four types of agents: KB Agent, LLM Agent, Flow Agent, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents encode business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and serve customers collectively.  KB and LLM Agents are atomic meaning they cannot contain other agents.  Ensemble Agents can consist of multiple atomic agents.  Flow Agents can be both.
+Agent is the building block of MICA. You can create different agents based on the tasks you would like to assign. There are four types of agents in MICA: KB, LLM, Flow, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents deal with business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents.  KB and LLM Agents are atomic meaning they cannot contain or call other agents.  Ensemble Agents can consist of multiple agents.  Flow Agents can be both.
 <center>
 <img style="width: 30%; height: auto;" src="structure.png">
 <br>
@@ -28,14 +27,14 @@ kb:   # agent name
 
 The agent name can be any string that complies with YAML. This KB Agent contains four attributes:
 
-- `faq`: You can define specific questions and their corresponding answers. Use each question as a key and its answer as the value.
+- `faq`: You can pair questions and their answers. Use each question as a key and its answer as the value.
 - `web`: You can list all relevant websites here. Our engine will automatically crawl the content of these websites and use it as part of the knowledge base.
 - `file`: This field includes files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place files there. The engine will digest all the content in this directory and put it in the knowledge base.
 
 Given a user utterance, the KB Agent will determine if it is a question and if it can be answered by the knowledge base it builds.
 
 ## LLM Agent
-LLM Agents serve as the fundamental building block for task-oriented conversations. It specifies domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate.  The following example shows an LLM Agent to handle money transfer. 
+LLM Agents serve as the core building block for task-oriented conversations. It specifies domain knowledge and constraints through prompt programming. Additionally, LLM Agents can use tools and states to communicate.  The following example shows an LLM Agent to handle money transfer. 
 
 ```yaml
 transfer_money:
@@ -56,10 +55,10 @@ transfer_money:
 ```
 A typical LLM Agent includes the following attributes:
 
-- `description`: This field provides a brief explanation of the agent’s functionality. Based on the conversation context, this field is used to determine whether this agent should be used for the response or not.
-- `prompt`: This field details how the agent will perform.  If a certain function needs to be called during the process, the prompt should indicate when and which function to call.
+- `description`: This field provides a brief explanation of the agent’s functionality. Based on the conversation context, it is used to determine whether this agent should respond or not.
+- `prompt`: This field details how the agent will do the task.  If a certain function needs to be called during the process, the prompt should indicate when and which function to call.
 - `args` (optional): If you need to pass or extract specific information (such as state, slot, variable, or any other relevant data) between the agent and others, you may populate this field. Please note that, at present, all variables are treated as strings.
-- `uses` (optional): This lists all the function names used in the prompt. These functions can be implemented in a separate Python script.
+- `uses` (optional): This lists the functions used in the prompt. These functions shall be provided in a separate Python file.
 
 When calling an LLM Agent, MICA will automatically fill in all the args based on the defined content and call the corresponding Python functions. This process continues until the LLM Agent’s task is completed or the user changes his mind and needs a different agent to handle his request. 
 
@@ -117,7 +116,7 @@ A Flow Agent typically has the following attributes:
 
 - `description`: Similar to LLM Agent, the description of the Flow Agent should briefly explain its functionality.
 - `args` (optional): Similar to LLM Agent. 
-- `steps`: This is the body of the Flow Agent, where all the logic is written.  Please refer to Flow Control (Link to flow control) for more details. 
+- `steps`: This is the body of the Flow Agent, where all the logic is written.  Please refer to [Flow Control](/docs/concepts/flow_control) for more details. 
 - `fallback` (optional): If the user’s input is unrelated to the current flow and this field is defined, the flow will follow the specified fallback policy. Otherwise, the flow will terminate immediately.
 
 ## Ensemble Agent
@@ -140,4 +139,4 @@ You need to fill out the following information:
 - `contains`: List all the agents managed and coordinated by this Ensemble Agent.
 - `args` (optional): Similar to LLM Agent. If the arg names defined here match those in the agents listed, the values from those agents will be automatically filled into this field.
 - `fallback` (optional): If the user’s input cannot be handled by any agent listed and this field is defined, the flow will follow the specified fallback policy. Otherwise, there will be no response. You can also define a policy to describe the trigger condition of the fallback.
-- `exit` (optional): When the user has completed a task and this field is defined,  the agent will terminate the conversation after 3 tries.  Otherwise, the agent will continue running.  You can customize your the exit condition.
+- `exit` (optional): When the user has completed a task and this field is defined,  the agent will terminate the conversation after 3 tries.  Otherwise, the agent will continue running.  You can customize your exit condition.
