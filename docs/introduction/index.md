@@ -383,7 +383,7 @@ transfer_money:
 
 While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
 
-In summary, MICA considers these observations and advocates for an agent centric framework as the future of agent design. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing a critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
+In summary, MICA considers these observations and advocates for an agent centric framework as the future of customer service. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
 [Try and Explore MICA Today!](https://github.com/Mica-labs/MICA)
 
