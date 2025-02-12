@@ -14,6 +14,9 @@ As the capabilities of large language models (LLMs) continue to grow, it is anti
 
 By their nature, the tasks performed by (human) agents are often expressed in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language. Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman).  The bot can translate a user’s natural language input into Bash commands, execute them, and return the results with a natural language explanation. MICA can achieve the same functionality using an LLM agent.
 ```yaml
+tools:
+  - executor.py
+
 middleman:
   type: llm agent
   description: Ask GPT and get command/status/next action
@@ -40,15 +43,11 @@ meta:
   description: You can select an agent to respond to the user's question.
   contains:
     - middleman
-  steps:
-    - middleman
   
 main:
   steps:
     - call: meta
 
-tools:
-  - executor.py
 ```
 The code responsible for program execution is the same as Middleman's implementation.
 
