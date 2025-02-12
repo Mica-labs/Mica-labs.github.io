@@ -62,7 +62,7 @@ def run_command(command):
 ```
 
 <details>
-  <summary>Show the Middleman code</summary>
+  <summary>Show the Python+LLM implementation of Middleman </summary>
   <pre><code>import openai
 from typing import Literal, Optional
 from pydantic import BaseModel
