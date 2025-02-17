@@ -12,10 +12,11 @@ As the capabilities of large language models (LLMs) continue to grow, it is anti
 <div> Obs. 1: Python Programming vs. Natural Language Programming</div>
 </center>
 
-By their nature, the tasks performed by agents are often easier to express in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language. Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman). 
-
-This is a bot that can translate a user’s natural language input into Bash commands, execute them, and return the results with a natural language explanation. MICA can define an LLM agent to achieve this functionality.
+By their nature, the tasks performed by (human) agents are often expressed in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language. Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman).  The bot can translate a user’s natural language input into Bash commands, execute them, and return the results with a natural language explanation. MICA can achieve the same functionality using an LLM agent.
 ```yaml
+tools:
+  - executor.py
+
 middleman:
   type: llm agent
   description: Ask GPT and get command/status/next action
@@ -42,15 +43,11 @@ meta:
   description: You can select an agent to respond to the user's question.
   contains:
     - middleman
-  steps:
-    - middleman
   
 main:
   steps:
     - call: meta
 
-tools:
-  - executor.py
 ```
 The code responsible for program execution is the same as Middleman's implementation.
 
@@ -65,7 +62,7 @@ def run_command(command):
 ```
 
 <details>
-  <summary>Show the Middleman code</summary>
+  <summary>Show the Python+LLM implementation of Middleman </summary>
   <pre><code>import openai
 from typing import Literal, Optional
 from pydantic import BaseModel
@@ -250,7 +247,7 @@ if __name__ == "__main__":
 </code></pre>
 </details>
 
-Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue to evolve, becoming increasingly powerful and more user-friendly.
+Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
 
 
 <center>
@@ -261,7 +258,7 @@ Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and
 
 Service bots are traditionally developed with rigid flow control.  As long as you would like to give a little bit more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
 
-For example, when we want to implement a money transfer chatbot, since traditional flow control tool with LLM support ([Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot)) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete this task. In contrast, with MICA, you can design the chatbot in under 40 lines.
+Suppose we want to implement a money transfer chatbot.  Using a mixture of traditional flow controls and LLM support, [Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete the task. Developing and testing this code is a challenging task, not to mention the subsequent maintenance and upgrade efforts.  In contrast, you only need ~40 lines in MICA.
 
 <details>
   <summary>Show the RASA code</summary>
@@ -360,7 +357,7 @@ responses:
   </code></pre>
 </details>
 
-If you use MICA, it will be:
+If you use MICA, it looks like the following:
 ```yaml
 transfer_money:
   type: llm agent
@@ -386,7 +383,7 @@ transfer_money:
 
 While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
 
-In summary, MICA considers these observations and advocates for an agent centric framework as the future of agent design. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing a critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
+In summary, MICA considers these observations and advocates for an agent centric framework as the future of customer service. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
 [Try and Explore MICA Today!](https://github.com/Mica-labs/MICA)
 

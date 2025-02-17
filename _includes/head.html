@@ -24,6 +24,22 @@
 
   {% if site.ga_tracking != nil %}
     {% assign ga_tracking_ids = site.ga_tracking | split: "," %}
+  <script>
+    console.log("HELL")
+    document.addEventListener("DOMContentLoaded", function() {
+      alert("HELL")
+      // 找到当前活动的父菜单项
+      const activeMenuItem = document.querySelector('.nav-list-item.active');
+      if (activeMenuItem) {
+
+        const expanderButton = activeMenuItem.querySelector('.nav-list-expander');
+        if (expanderButton && expanderButton.getAttribute('aria-pressed') === 'false') {
+
+          expanderButton.click();
+        }
+      }
+    });
+  </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_tracking_ids.first }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
