@@ -4,6 +4,7 @@ title: Why MICA
 nav_order: 2
 ---
 
+## Obs. 1: Python Programming vs. Natural Language Programming
 As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction.  We have the following observations: 
 
 <center>
