@@ -256,11 +256,8 @@ if __name__ == "__main__":
 ### Observation 2: Rigid Control Flow vs. Full Flexibility
 Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
 
-
 <center>
 <img style="width: 65%; height: auto;" src="whyMICA-2.png">
-<br>
-<div> Obs. 2: Rigid Control Flow vs. Full Flexibility</div>
 </center>
 
 Service bots are traditionally developed with rigid flow control.  As long as you would like to give a little bit more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
@@ -385,8 +382,6 @@ transfer_money:
 While it is possible to put all the constraints, all the business logics and knowledge in one gigantic LLM agent, practically it will cause a lot of issues with testing, debugging, reusability, etc.  Modern engineering principles emphasize the importance of designing and testing individual components before integrating them. The same principle applies to agent development.  
 <center>
 <img style="width: 65%; height: auto;" src="whyMICA-3.png">
-<br>
-<div>Obs. 3: Multiple Agents vs. One Gigantic LLM Agent</div>
 </center>
 
 In summary, MICA considers these observations and advocates for an agent centric framework as the future of customer service. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
