@@ -21,7 +21,7 @@ Then, start the service:
 ```bash
 python demo.py
 ```
-You can visit `http://localhost:8760` and start to design.
+You can visit `http://localhost:7860` and start to design.
 ![img.png](gui.png)
 
 ## GUI Feature Introduction
