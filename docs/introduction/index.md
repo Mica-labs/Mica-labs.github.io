@@ -5,7 +5,7 @@ nav_order: 2
 ---
 
 ### Observation 1: Python Programming vs. Natural Language Programming
-As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction.  We have the following observations: 
+As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction. 
 
 <center>
 <img style="width: 80%; height: auto;" src="whyMICA-1.png">
@@ -252,6 +252,8 @@ if __name__ == "__main__":
 """
 </code></pre>
 </details>
+
+In many cases, implementing control logic partially with LLM and partially with Python is unnecessary. 
 
 ### Observation 2: Rigid Control Flow vs. Full Flexibility
 Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
