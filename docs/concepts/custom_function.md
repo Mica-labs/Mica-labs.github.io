@@ -11,10 +11,12 @@ You need to write custom function in a `.py` file and include the `.py` file in 
 
 ## Function Structure
 
-You can execute your own function code within an LLM agent or a flow agent.
-1. Using an LLM agent as an example
+You can execute your own function code within different kinds of agents. The following are two different typical tool use cases.
+
+### Using an LLM agent as an example
 Suppose you want to implement an LLM agent for querying the weather. The LLM agent will ask the user for the location and date they want to check, then call a function that queries a weather API to retrieve real-time weather information. Finally, the LLM agent will generate a natural language response based on the function’s result.
-To achieve this, you need to specify in the prompt when to call the function and declare the function name under uses when defining the LLM agent. Below is the agents.yml definition for the weather-querying LLM agent:
+To achieve this, you need to specify in the prompt when to call the function and declare the function name under uses when defining the LLM agent. Below is the `agents.yml` definition for the weather-querying LLM agent:
+
 ```yaml
 tools:
   - tools.py
@@ -27,7 +29,8 @@ Weather Inquiry:
     - get_weather_info
 ```
 
-Next, you need to implement get_weather_info() in tools.py. Below is an example:
+Next, you need to implement `get_weather_info()` in tools.py. Below is an example:
+
 ```python
 import requests
 
@@ -62,13 +65,13 @@ def get_weather_info(location, date):
 The example above uses a public API to query historical weather data for a given location and date.
 In an actual conversation, the LLM agent will ask the user for location and date, then internally request execution of get_weather_info, passing the collected parameters to this function.
 
-Once executed, all print() statements will be passed back to the LLM, which will analyze them to generate the next utterance. The user will not see any content printed by print().
+Once executed, all `print()` statements will be passed back to the LLM, which will analyze them to generate the next utterance. The user will not see any content printed by `print()`.
 If you want this function to directly respond to the user, you need to structure the return output in a specific format.
 
-2. Manually Defining Function Calls Using Call Step.
+### Manually Defining Function Calls Using Call Step
 In addition to LLM function calls, you can manually define function calls at any point during the conversation (steps can exist in main/ensemble agent/flow agent). In certain workflows, at the beginning or end of a conversation, you may need to interact with external sources via functions.
 
-For example, if you need to retrieve user information from a database before the conversation starts, you must first specify a function call in the steps of the ensemble agent. This is the content of agents.yml:
+For example, if you need to retrieve user information from a database before the conversation starts, you must first specify a function call in the steps of the ensemble agent. This is the content of `agents.yml`:
 ```yaml
 meta:
   type: ensemble agent
@@ -109,8 +112,7 @@ def get_info(username):
         return
 ```
 
-
-In the return of this function, the value is assigned to the args of get_info. Using the set statement, the values can be copied to the ensemble agent. If other agents have args with the same name, they can share the value.
+In the return of this function, the value is assigned to the args of `get_info`. Using the set statement, the values can be copied to the ensemble agent. If other agents have args with the same name, they can share the value.
 
 Here is a complete function implementation template:
 ```python
