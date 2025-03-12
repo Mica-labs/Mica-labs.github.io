@@ -10,7 +10,7 @@ permalink: /
 There are numerous agent frameworks available—such as [AutoGen](https://github.com/microsoft/autogen), [CrewAI](https://github.com/crewAIInc/crewAI), [LangChain](https://github.com/langchain-ai/langchain), [Amazon MAO](https://github.com/awslabs/multi-agent-orchestrator), and [Swarm](https://github.com/openai/swarm) —these frameworks offer high flexibility for constructing agents in general settings. However, they tend to be overly complex for professionals in the customer service domain who has limited programming experience.
 While emphasizing the orchestration of multiple agents, their designs are frequently buried in intricate Python code, lacking a clear, big picture. We argue that the core of an agent framework should center on the agents themselves. Approaches like Swarm’s minimalist design and CrewAI’s use of agent configuration files offer promising directions.  MICA takes a bold step forward by placing natural language programming of agents at the core of the framework.
 
-Here is a skeleton of an airline service bot written in MICA. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). If you like this design, [please give us a star](https://github.com/Mica-labs/MICA#staying-ahead).  Your support will motivate us to continue adding new features, including tracing, testing, and debugging.
+Here is a skeleton of an airline service bot written in MICA. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). If you like this design, please give us a [star](https://github.com/Mica-labs/MICA#staying-ahead).  Your support will motivate us to continue adding new features, including tracing, testing, and debugging.
 
 ```yaml
 Flight Cancel:
