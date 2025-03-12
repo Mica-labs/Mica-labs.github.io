@@ -5,7 +5,7 @@ nav_order: 2
 ---
 
 ### Observation 1: Python Programming vs. Natural Language Programming
-As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific service knowledge, leaving the language model to handle the intricacies of user interaction. 
+As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific knowledge, leaving the language model to handle the intricacies of user interaction. 
 
 <center>
 <img style="width: 80%; height: auto;" src="whyMICA-1.png">
@@ -55,7 +55,7 @@ main:
     - call: meta
 
 ```
-The code responsible for program execution is the same as Middleman's implementation.
+The code responsible for program execution is the same as the Python+LLM's implementation.
 
 ```python
 import subprocess
@@ -253,10 +253,10 @@ if __name__ == "__main__":
 </code></pre>
 </details>
 
-In many cases, implementing control logic partially with LLM and partially with Python is unnecessary. 
+Our point is, in many cases, implementing control logic partially with LLM and partially with Python is unnecessary. 
 
 ### Observation 2: Rigid Control Flow vs. Full Flexibility
-Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-centric. In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
+Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and Swarm remain predominantly Python-first. There are benefits to do so.  In contrast, MICA chooses to move away from Python programming as much as possible, embracing the belief that LLMs will continue improving, becoming more powerful, accurate and user-friendly.
 
 <center>
 <img style="width: 65%; height: auto;" src="whyMICA-2.png">
@@ -386,7 +386,7 @@ While it is possible to put all the constraints, all the business logics and kno
 <img style="width: 65%; height: auto;" src="whyMICA-3.png">
 </center>
 
-In summary, MICA considers these observations and advocates for an agent centric framework as the future of customer service. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
+In summary, MICA takes these observations into consideration and advocates for an agent centric framework as the future of service bots. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
 [Try and Explore MICA Today!](https://github.com/Mica-labs/MICA)
 
