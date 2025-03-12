@@ -138,5 +138,5 @@ lost_baggage = Agent(
 
 MICA comprises four types of agents: KB, LLM, Flow, and Ensemble. As their names suggest, KB Agents handle information retrieval and question-answering tasks, while LLM Agents deal with business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and selects the right agent to respond.  That is all.  MICA's principle is to minimize the introduction of new concepts.
 
-Sirui Zeng, Xifeng Yan  
+[Sirui Zeng](https://siruizeng011.github.io/), [Xifeng Yan](https://sites.cs.ucsb.edu/~xyan/)  
 Computer Science, University of California at Santa Barbara
