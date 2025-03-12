@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Example
+title: "Retail Banking Bot"
 parent: Quick Start
 nav_order: 4
 ---
@@ -526,6 +526,7 @@ block_card_flow:
     - begin: contact_support
     - bot: "Should you require further assistance, please contact our support team at 020 7777 7777. Thank you for being a valued customer."
     - call: action_update_card_status
+    - end 
 ```
 
 ## Conclusion
