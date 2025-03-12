@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Example
+parent: Quick Start
 nav_order: 4
 ---
 
 The [Rasa Starter Pack for Retail Banking](https://github.com/rasa-customers/starterpack-retail-banking-en/tree/main) is an example project that demonstrates how to build a conversational assistant for banking services using Rasa. This assistant can help users transfer money, check balances, manage payees, and block cards.
-对于每个agent，Rasa需要定义每一个需要收集的变量，以及flow的完整流程。我会在下面详细介绍这一点。
+For each agent, Rasa needs to define every variable that needs to be collected, as well as the complete flow process. I will elaborate on this in detail below.
 
 We have successfully implemented the same features of this Rasa example using MICA. You can find the complete implementation [here](https://github.com/Mica-labs/MICA/tree/main/examples/retail_banking), or use our provided visual interface to load and test it directly. Below, we outline key features from the repository and compare our implementation with MICA, highlighting how MICA simplifies the process compared to Rasa's more complex setup.
 

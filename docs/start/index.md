@@ -2,7 +2,7 @@
 layout: default
 title: Quick Start
 nav_order: 3
-has_children: false
+has_children: true
 ---
 
 Getting started with MICA is straightforward. There are two options: One is through a local GUI frontend; the other is being deployed with docker image.
