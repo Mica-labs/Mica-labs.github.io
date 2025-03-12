@@ -267,6 +267,7 @@ block_card:
     - action_ask_card
     - action_update_card_status
 ```
+
 <details>
   <summary>Show the RASA Implementation</summary>
   <pre><code>
@@ -438,6 +439,94 @@ responses:
     - text: Thanks for informing us about moving.
 </code></pre>
 </details>
+
+In addition to the LLM agent implementation, MICA also provides the Flow agent, which can achieve the same effect as Rasa. Below is an example of implementing the blocking card feature using the Flow agent.
+
+```yaml
+block_card_flow:
+  type: flow agent
+  description: Block or freeze a user's debit or credit card
+  args:
+    - reason_for_blocking
+    - physical_address
+    - fraud_reported
+    - temp_block_card
+  steps:
+    - begin
+    - bot: "Okay, we can block a card. Let's do it in a few steps"
+    - bot: "Please tell us the reason for blocking"
+    - user
+    - if: the user claims "My card is damaged", "My card has expired"
+      then: 
+        - next: acknowledge_reason_damaged_expired
+    - else if: the user claims "I lost my card", "I suspect fraud on my account"
+      then:
+        - next: acknowledge_reason_fraud_stolen_lost
+    - else if: the user claims "I'm planning to travel soon", "I'm moving to a new address"
+      then:
+        - next: acknowledge_reason_travelling_moving
+    - else:
+        - next: contact_support
+    - end
+    
+    - begin: acknowledge_reason_damaged_expired
+    - bot: Thank you for letting us know. I'm sorry to hear the card was {reason_for_blocking}
+    - next: confirm_issue_new_card
+    - end
+    
+    - begin: acknowledge_reason_fraud_stolen_lost
+    - bot: "As your card was potentially stolen, it's crucial to report this incident to the authorities. Please contact your local law enforcement agency immediately."
+    - set:
+        fraud_reported: true
+    - next: card_blocked
+    - end
+    
+    - begin: acknowledge_reason_travelling_moving
+    - bot: "Thanks for informing us about moving."
+    - set:
+        temp_block_card: true
+    - next: card_blocked
+    - end
+    
+    - begin: card_blocked
+    - if: fraud_reported == true
+      then:
+        - bot: "Since you have reported {reason_for_blocking}, we will block your card"
+    - else if: temp_block_card == true
+      then:
+        - bot: "Since you are {reason_for_blocking}, we will temporarily block your card."
+    - next: confirm_issue_new_card
+    - end
+    
+    - begin: confirm_issue_new_card
+    - bot: Would you like to be issued a new card?
+    - user
+    - if: the user claims "Yes, send me a new card"
+      then:
+        - next: retrieve_user_address
+      else:
+        - call: action_update_card_status
+    - end
+    
+    - begin: retrieve_user_address
+    - bot: "I have found your address: {physical_address}. Should the new card be delivered there?"
+    - user
+    - if: the user claims "Yes"
+      then:
+        - next: card_sent
+      else:
+        - next: contact_support
+    - end
+
+    - begin: card_sent
+    - bot: "Your card will be delivered to {physical_address} within 7 business days"
+    - call: action_update_card_status
+    - end
+
+    - begin: contact_support
+    - bot: "Should you require further assistance, please contact our support team at 020 7777 7777. Thank you for being a valued customer."
+    - call: action_update_card_status
+```
 
 ## Conclusion
 
