@@ -6,10 +6,12 @@ description: "The Enterprise Level Agentic Solution"
 permalink: /
 ---
 
-MICA (Multiple Intelligent Conversational Agents) is designed to simplify the development of customer service bots. There are numerous agent frameworks available—such as [AutoGen](https://github.com/microsoft/autogen), [CrewAI](https://github.com/crewAIInc/crewAI), [LangChain](https://github.com/langchain-ai/langchain), [Amazon MAO](https://github.com/awslabs/multi-agent-orchestrator), and [Swarm](https://github.com/openai/swarm) —these frameworks offer high flexibility for constructing agents in general settings. However, they tend to be overly complex for professionals in the customer service domain who has limited programming experience.
+MICA (Multiple Intelligent Conversational Agents) is now live.  After years of exploring the ideal architecture for customer service bots, we finally arrived at a solution that we are satisfied with. It is a kind of YAML version of OpenAI's [Swarm](https://github.com/openai/swarm) (and [OpenAI Agent SDK](https://platform.openai.com/docs/guides/agents-sdk)).  However, it has an SQL-like mindset. Mica abstracts away implementation details, providing a succinct description of agents and their relationship, making systematic prompting engineering, testing and debugging possible in the future.  
+ 
+There are numerous agent frameworks available—such as [AutoGen](https://github.com/microsoft/autogen), [CrewAI](https://github.com/crewAIInc/crewAI), [LangChain](https://github.com/langchain-ai/langchain), [Amazon MAO](https://github.com/awslabs/multi-agent-orchestrator), and [Swarm](https://github.com/openai/swarm) —these frameworks offer high flexibility for constructing agents in general settings. However, they tend to be overly complex for professionals in the customer service domain who has limited programming experience.
 While emphasizing the orchestration of multiple agents, their designs are frequently buried in intricate Python code, lacking a clear, big picture. We argue that the core of an agent framework should center on the agents themselves. Approaches like Swarm’s minimalist design and CrewAI’s use of agent configuration files offer promising directions.  MICA takes a bold step forward by placing natural language programming of agents at the core of the framework.
 
-Here is a skeleton of an airline service bot written in MICA. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). 
+Here is a skeleton of an airline service bot written in MICA. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). If you like this design, [please give us a star](https://github.com/Mica-labs/MICA#staying-ahead).  Your support will motivate us to continue adding new features, including tracing, testing, and debugging.
 
 ```yaml
 Flight Cancel:
@@ -135,3 +137,6 @@ lost_baggage = Agent(
 </details>
 
 MICA comprises four types of agents: KB, LLM, Flow, and Ensemble. As their names suggest, KB Agents handle information retrieval and question-answering tasks, while LLM Agents deal with business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents and selects the right agent to respond.  That is all.  MICA's principle is to minimize the introduction of new concepts.
+
+Sirui Zeng, Xifeng Yan
+Computer Science, University of California at Santa Barbara
