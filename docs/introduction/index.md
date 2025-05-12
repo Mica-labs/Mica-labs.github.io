@@ -51,6 +51,7 @@ meta:
     - middleman
   
 main:
+  type: flow agent
   steps:
     - call: meta
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Agent
-parent: Concepts
+parent: ADL Concepts
 nav_order: 1
 ---
 Agent is the building block of MICA. You can create different agents based on the tasks you would like to assign. There are four types of agents in MICA: KB, LLM, Flow, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents deal with business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents.  KB and LLM Agents are atomic meaning they cannot contain or call other agents.  Ensemble Agents can consist of multiple agents.  Flow Agents can be both.
@@ -72,7 +72,6 @@ shopping_flow:
     - discount
     - is_new_customer
   steps:
-    - begin
     - bot: Hi. I'm your shopping assistant. What can I do for you today?
     - label: start
     - user
@@ -98,9 +97,8 @@ shopping_flow:
         - bot: "You can ask me something like \"Any discount?\" or \"Start shopping.\"."
         - next: start
           tries: 3
-    - end
 
-    - begin: get_discount
+  get_discount:
     - if: is_new_customer == True
       then:
         - set: 
@@ -108,15 +106,14 @@ shopping_flow:
         - return: success, Load discount successful.
       else:
         - return: error, No discount applied.
-    - end
-  fallback:
-    - policy: "Give a fallback message: I'm sorry, I didn't understand that. Can you please rephrase? If fallback three times consecutively, then terminate the conversation."
+
+  fallback: "Give a fallback message: I'm sorry, I didn't understand that. Can you please rephrase? If fallback three times consecutively, then terminate the conversation."
 ```
 A Flow Agent typically has the following attributes:
 
 - `description`: Similar to LLM Agent, the description of the Flow Agent should briefly explain its functionality.
 - `args` (optional): Similar to LLM Agent. 
-- `steps`: This is the body of the Flow Agent, where all the logic is written.  Please refer to [Flow Control](/docs/concepts/flow_control) for more details. 
+- `steps`: This is the body of the Flow Agent, where all the logic is written.  Please refer to [Flow Control](/docs/ADL%20Concepts/flow_control) for more details. 
 - `fallback` (optional): If the user’s input is unrelated to the current flow and this field is defined, the flow will follow the specified fallback policy. Otherwise, the flow will terminate immediately.
 
 ## Ensemble Agent
@@ -125,14 +122,18 @@ Ensemble Agents are different from the other three agents that have actual conve
 Meta:
   type: ensemble agent
   contains:
-    - flow_agent
-    - llm_agent
+    - flow_agent:
+        args:
+          flow_arg_name: ensemble_arg_name
+    - llm_agent:
+        args:
+          llm_arg_name: ref ensemble_arg_name
+    - kb_agent
   args:
     - user_name
     - user_gender
   fallback: default_agent
-  exit: 
-    policy: "exit policy here"
+  exit: "exit policy here"
 ```
 You need to fill out the following information:
 

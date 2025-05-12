@@ -46,6 +46,7 @@ Meta:
     - Lost Baggage
 
 main:
+  type: flow agent
   steps:
     - call: Meta
 ```

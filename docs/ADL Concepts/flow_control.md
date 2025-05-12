@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Flow Control
-parent: Concepts
+parent: ADL Concepts
 nav_order: 3
 ---
 
@@ -14,7 +14,6 @@ shopping_flow:
     - discount
     - is_new_customer
   steps:
-    - begin
     - bot: Hi. I'm your shopping assistant. What can I do for you today?
     - label: start
     - user
@@ -40,9 +39,8 @@ shopping_flow:
         - bot: "You can ask me something like \"Any discount?\" or \"Start shopping.\"."
         - next: start
           tries: 3
-    - end
 
-    - begin: get_discount
+  get_discount:
     - if: is_new_customer == True
       then:
         - set: 
@@ -50,7 +48,6 @@ shopping_flow:
         - return: success, Load discount successful.
       else:
         - return: error, No discount applied.
-    - end
 ```
 
 The statements are written under `steps`, including subflow, user, bot, conditional control, loop, and call.
@@ -66,14 +63,11 @@ When multiple subflows are present, you must explicitly invoke additional subflo
 greeting:
   type: flow agent
   steps:
-    - begin
     - bot: How are you? 
     - call: introduction
-    - end
     
-    - begin: introduction
-    - bot: I am a service bot. 
-    - end
+  introduction:
+    - bot: I am a service bot.
 ```
 
 The example above includes two subflows. When the agent executes, MICA locates the first subflow and then sequentially executes the steps within it. Since there is a `call` statement, it will invoke the `goodbye` subflow after the bot replies ``How are you?''
@@ -236,7 +230,7 @@ book_restaurant:
 
 Here, `search_recommendation` is a Python function. You need to implement the corresponding Python code and define the function in the `search.py` file.  
 
-Below is a simulated Python implementation. For details on Python implementation guidelines, please refer to [here](/docs/concepts/custom_function).
+Below is a simulated Python implementation. For details on Python implementation guidelines, please refer to [here](/docs/ADL%20Concepts/custom_function).
 
 ```python
 import random

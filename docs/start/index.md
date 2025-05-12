@@ -188,13 +188,13 @@ meta:
     - transfer_money
     - kb
   fallback: default_agent
-  exit:
-    - policy: "After 5 seconds, give a closure prompt: Is there anything else I can help you with?  After another 30 seconds, then leave."
+  exit: "After 5 seconds, give a closure prompt: Is there anything else I can help you with?  After another 30 seconds, then leave."
 ```
 ### Which Agent to Start
 As the `agent.yml` file contains multiple agents, it is necessary to designate an initial agent to start the process. The main agent serves this purpose, acting as the entry point for the chatbot. Its steps can invoke any agent; however, in most cases, it calls an Ensemble agent to coordinate interactions among different agents.
 ```yaml
 main:
+  type: flow agent
   steps:
     - call: meta
 ```
