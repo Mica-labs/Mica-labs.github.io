@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Custom Function
-parent: Concepts
+parent: ADL Concepts
 nav_order: 2
 ---
 
