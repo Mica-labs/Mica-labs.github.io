@@ -4,7 +4,7 @@ title: Agent
 parent: ADL Concepts
 nav_order: 1
 ---
-Agent is the basic building block in ADL. You can create different agents based on the tasks you would like to assign. There are four types of agents in ADL: KB, LLM, Flow, and Ensemble Agent. KB Agents handle information retrieval and question-answering tasks, while LLM Agents deal with business logic and workflows using natural language. In contrast, Flow Agents allow traditional control flows through a domain-specific language. An Ensemble Agent orchestrates these agents.  KB and LLM Agents are atomic meaning they cannot contain or call other agents.  Ensemble Agents can consist of multiple agents.  Flow Agents can be both.
+Agent is the basic building block in ADL. You can create different agents based on the tasks you would like to assign. There are four types of agents in ADL: KB, LLM, Flow, and Ensemble Agent. KB agents handle information retrieval and question-answering tasks, while LLM agents deal with business logic and workflows using natural language. In contrast, Flow agents allow traditional control flows through a domain-specific language. An Ensemble agent orchestrates these agents. In the current implmentation of MICA, KB and LLM agents cannot contain or call other agents.  Flow agents can call both KB and LLM agents.
 <center>
 <img style="width: 30%; height: auto;" src="structure.png">
 <br>
