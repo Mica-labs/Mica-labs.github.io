@@ -1,6 +1,6 @@
 ---
 layout: default
-title: How MICA Works
+title: How does MICA Work
 nav_order: 6
 ---
 
