@@ -503,7 +503,5 @@ block_card_flow:
     - call: action_update_card_status
 ```
 
-## Conclusion
-
-ADL/MICA provides an efficient and scalable alternative to the Rasa Starter Pack for Retail Banking. While Rasa requires extensive predefined intents, structured dialogues, and manual configurations, ADL/MICA simplifies implementation through its adaptive, context-aware, and streamlined approach. These improvements enable faster development and more natural interactions for customers.
+MICA provides an efficient and simplified alternative to Rasa. 
 
