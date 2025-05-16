@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Why MICA
+title: Why ADL/MICA
 nav_order: 2
 ---
 
@@ -18,7 +18,7 @@ As the capabilities of large language models (LLMs) continue to grow, it is anti
 <div> Obs. 1: Python Programming vs. Natural Language Programming</div>
 </center>
 -->
-By their nature, the tasks performed by (human) agents are often expressed in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language. Here is an example of a natural language command line using LLM(MICA) vs. [Python+LLM](https://github.com/aaalgo/middleman).  The bot can translate a user’s natural language input into Bash commands, execute them, and return the results with a natural language explanation. MICA can achieve the same functionality using an LLM agent.
+By their nature, the tasks performed by (human) agents are often expressed in natural language, while Python programs better serve as a bridge between agents and the computer world.  Whenever there is a tendency to use Python for control enforcement, it is often possible to achieve the same control logic solely through natural language. Here is an example of a natural language command line using LLM(ADL) vs. [Python+LLM](https://github.com/aaalgo/middleman).  The bot can translate a user’s natural language input into Bash commands, execute them, and return the results with a natural language explanation. ADL/MICA can achieve the same functionality using an LLM agent.
 ```yaml
 tools:
   - executor.py
@@ -265,7 +265,7 @@ Main stream agent frameworks such as AutoGen, CrewAI, LangChain, Amazon MAO, and
 
 Service bots are traditionally developed with rigid flow control.  As long as you would like to give a little bit more freedom to users, they will fall apart as it is hard to predict user input.   Achieving true flexibility requires leveraging LLMs.  MICA shifts away from traditional flow control, embracing the power of LLMs to handle complex, open-ended interactions.  While rigid flow control may provide short-term benefits, such as reducing hallucinations and offering a sense of controllability, it will be challenging in the long term if the goal is to provide users with greater freedom to interact with the system.
 
-Suppose we want to implement a money transfer chatbot.  Using a mixture of traditional flow controls and LLM support, [Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete the task. Developing and testing this code is a challenging task, not to mention the subsequent maintenance and upgrade efforts.  In contrast, you only need ~40 lines in MICA.
+Suppose we want to implement a money transfer chatbot.  Using a mixture of traditional flow controls and LLM support, [Rasa](https://github.com/RasaHQ/rasa-calm-demo?tab=readme-ov-file#demo-bot) requires explicitly defining slots, bot responses, and decision logic, it takes at least 180 lines of YAML (excluding some function code) to complete the task. Developing and testing this code is a challenging task, not to mention the subsequent maintenance and upgrade efforts.  In contrast, you only need ~40 lines in ADL.
 
 <details>
   <summary>Show the RASA code</summary>
