@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What are ADL and MICA
+title: What is MICA
 nav_order: 1
 description: "The Enterprise Level Agentic Solution"
 permalink: /
