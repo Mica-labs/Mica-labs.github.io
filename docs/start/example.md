@@ -503,5 +503,3 @@ block_card_flow:
     - call: action_update_card_status
 ```
 
-MICA provides an efficient and simplified alternative to Rasa. 
-
