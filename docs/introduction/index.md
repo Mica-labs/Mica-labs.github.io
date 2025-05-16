@@ -387,7 +387,7 @@ While it is possible to put all the constraints, all the business logics and kno
 <img style="width: 65%; height: auto;" src="whyMICA-3.png">
 </center>
 
-In summary, MICA takes these observations into consideration and advocates for an agent centric framework as the future of service bots. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
+In summary, ADL/MICA takes these observations into consideration and advocates for an agent centric framework as the future of service bots. While it retains flow control and tool use to facilitate interaction with traditional programming interfaces, ADL/MICA prioritizes natural language-based agents as its core element. This agent-centric approach also paves the way for advancements in automated testing and evaluation, addressing an increasingly critical need in service bot development. We will explore these benefits once MICA’s auto-testing capabilities are put online in the future. 
 
 [Try and Explore MICA Today!](https://github.com/Mica-labs/MICA)
 
