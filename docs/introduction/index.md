@@ -365,7 +365,7 @@ responses:
   </code></pre>
 </details>
 
-If you use MICA, it looks like the following:
+If you use ADL, it looks like the following:
 ```yaml
 transfer_money:
   type: llm agent
