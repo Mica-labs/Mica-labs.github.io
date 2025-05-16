@@ -6,7 +6,7 @@ description: "The Enterprise Level Agentic Solution"
 permalink: /
 ---
 
-After years of exploring the ideal architecture for customer service bots, we finally arrived at a solution that we are satisfied with: [ADL](https://arxiv.org/abs/2504.14787) (an agent declarative language for chatbots) and [MICA](https://github.com/Mica-labs/MICA) (Multiple Intelligent Conversational Agents, a supporting interpreter and running environment of ADL). 
+After years of exploring the ideal architecture for customer service bots, we finally arrived at a solution that we are satisfied with: [ADL](https://arxiv.org/abs/2504.14787) (an agent declarative language for chatbots) and [MICA](https://github.com/Mica-labs/MICA) (Multiple Intelligent Conversational Agents, an interpreter and running environment of ADL). 
 
 Here is a skeleton of an airline service bot written in ADL. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). 
 
