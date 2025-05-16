@@ -5,7 +5,7 @@ parent: ADL Concepts
 nav_order: 3
 ---
 
-To ensure that conversations proceed according to the predefined flows, MICA defines a complete set of control flow structures similar to traditional programming languages. Here is an example of Flow Agent that includes conditional statements. 
+To ensure that conversations proceed according to the predefined flows, ADL defines a complete set of control flow structures similar to traditional programming languages. Here is an example of Flow Agent that includes conditional statements. 
 ```yaml
 shopping_flow:
   type: flow agent
