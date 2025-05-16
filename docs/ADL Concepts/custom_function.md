@@ -5,7 +5,7 @@ parent: ADL Concepts
 nav_order: 2
 ---
 
-MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access.
+ADL supports interacting with external services. This can be achieved in multiple ways: (1) Custom Function is commonly used when retrieving information from sources such as databases, APIs, or when updating internal states. These functions are called within the steps statements. (2) Tool Calling allows the integration of custom functions within an LLM agent. Since an LLM agent may request tool execution during a conversation, ADL provides a mapping mechanism that minimizes the effort required for declaration. (3) Third-Party Agents, through a standardized interface, can take over the conversation when necessary, enabling seamless integration with external systems (not yet supported by MICA). MICA includes an internal sandbox that can execute custom Python code. You can implement your own validation functions, webhooks, or database access.
 
 You need to write custom function in a `.py` file and include the `.py` file in the agent yml through `tools:` The names of arguments in custom function should be meaningful, ideally matching the argument names defined in the agents. The language model relies on this mechanism to find corresponding arguments.
 
