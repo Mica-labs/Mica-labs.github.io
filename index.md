@@ -5,10 +5,9 @@ nav_order: 1
 description: "The Enterprise Level Agentic Solution"
 permalink: /
 ---
+After years of exploring ideal platforms for customer service chatbots, we have arrived at a solution that meets our expectations: [ADL](https://arxiv.org/abs/2504.14787) (Agent Declarative Language for chatbot specification) and [MICA](https://github.com/Mica-labs/MICA) (Multiple Intelligent Conversational Agents), which serves as both the interpreter and runtime environment for ADL-defined agents.
 
-After years of exploring the ideal architecture for customer service bots, we finally arrived at a solution that we are satisfied with: [ADL](https://arxiv.org/abs/2504.14787) (an agent declarative language for chatbots) and [MICA](https://github.com/Mica-labs/MICA) (Multiple Intelligent Conversational Agents, an interpreter and running environment of ADL). 
-
-Here is a skeleton of an airline service bot written in ADL. Its full implementation is available [here](https://github.com/Mica-labs/MICA/tree/main/examples). 
+Here is a skeleton of an airline service bot written in ADL. Its full implementation is available at [MICA](https://github.com/Mica-labs/MICA/tree/main/examples). 
 
 ```yaml
 Flight Cancel:
@@ -48,7 +47,7 @@ main:
     - call: Meta
 ```
 
-As a comparison, the Swarm implementation is [here](https://github.com/openai/swarm/tree/main/examples/airline).
+Please refer to [a Swarm implementation] (https://github.com/openai/swarm/tree/main/examples/airline) for comparison.
 <details>
   <summary>Partial Implementation of Swarm</summary>
   <pre><code>
