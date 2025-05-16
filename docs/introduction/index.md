@@ -3,6 +3,7 @@ layout: default
 title: Why ADL/MICA
 nav_order: 2
 ---
+There are numerous agent frameworks available—such as [AutoGen](https://github.com/microsoft/autogen), [CrewAI](https://github.com/crewAIInc/crewAI), [LangChain](https://github.com/langchain-ai/langchain), [Amazon MAO](https://github.com/awslabs/multi-agent-orchestrator), and [Swarm](https://github.com/openai/swarm) —these frameworks offer high flexibility for constructing agents in general settings. However, they tend to be overly complex for professionals in the customer service domain who have limited programming experience. ADL/MICA is designed to make chatbot programming as simple as possible.
 
 ### Observation 1: Python Programming vs. Natural Language Programming
 As the capabilities of large language models (LLMs) continue to grow, it is anticipated that natural language will increasingly dominate the design of agents. In this new paradigm, designers only need to provide high-level instructions and domain specific knowledge, leaving the language model to handle the intricacies of user interaction. 
