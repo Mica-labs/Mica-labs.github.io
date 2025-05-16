@@ -13,7 +13,7 @@ We have successfully implemented the same features of this Rasa example using MI
 ## Feature Comparison
 
 ### 1. **Money Transfer**
-This function requires the user to first verify whether the payee exists, then collect a series of variables, and finally complete the transfer. In MICA, you can use the following LLM agent to implement this process. Here is a part of `agents.yml`:
+This function requires the user to first verify whether the payee exists, then collect a series of variables, and finally complete the transfer. In ADL, you can use the following LLM agent to implement this process. Here is a part of `agents.yml`:
 ```yaml
 transfer_money:
   type: llm agent
@@ -440,7 +440,7 @@ responses:
 </code></pre>
 </details>
 
-In addition to the LLM agent implementation, MICA also provides the Flow agent, which can achieve the same effect as Rasa. Below is an example of implementing the blocking card feature using the Flow agent.
+In addition to the LLM agent implementation, ADL also provides the Flow agent, which can achieve the same effect as Rasa. Below is an example of implementing the blocking card feature using the Flow agent.
 
 ```yaml
 block_card_flow:
@@ -505,5 +505,5 @@ block_card_flow:
 
 ## Conclusion
 
-MICA provides an efficient and scalable alternative to the Rasa Starter Pack for Retail Banking. While Rasa requires extensive predefined intents, structured dialogues, and manual configurations, MICA simplifies implementation through its adaptive, context-aware, and streamlined approach. These improvements enable faster development and more natural interactions for customers.
+ADL/MICA provides an efficient and scalable alternative to the Rasa Starter Pack for Retail Banking. While Rasa requires extensive predefined intents, structured dialogues, and manual configurations, ADL/MICA simplifies implementation through its adaptive, context-aware, and streamlined approach. These improvements enable faster development and more natural interactions for customers.
 
