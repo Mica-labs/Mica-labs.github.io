@@ -16,20 +16,21 @@ A KB Agent is designed to handle KBQA (Knowledge Base Question Answering) tasks.
 
 ```yaml
 kb:   # agent name
-  type: KB agent
+  type: kb agent
   faq:
-    Are you a robot: Yes, I'm your virtual assistant.
-    Goodbye: Thank you, bye.
-  web:
+    - q: Are you a robot
+      a: Yes, I'm your virtual assistant.
+    - q: Goodbye
+      a: Thank you, bye.
+  sources:
     - http://url
-  file: /path/to/kb/files
+    - /path/to/kb/files
 ```
 
 The agent name can be any string that complies with YAML. This KB Agent contains four attributes:
 
-- `faq`: You can pair questions and their answers. Use each question as a key and its answer as the value.
-- `web`: You can list all relevant websites here. Our engine will automatically crawl the content of these websites and use it as part of the knowledge base.
-- `file`: This field includes files with `.doc`, `.pdf`, or `.csv` extensions. You can specify a directory and place files there. The engine will digest all the content in this directory and put it in the knowledge base.
+- `faq`: You can pair questions and their answers. Set each question in `q` attribute and its answer in `a` attribute.
+- `sources`: You can list all relevant websites or files here. Our engine will automatically process the content. If it is a URL, MICA will crawl the websites and include their content in the knowledge base. You can also specify a directory and place files there. Files with `.doc`, `.pdf`, or `.csv` extensions are supported. The engine will extract and incorporate all content from the directory into the knowledge base.
 
 Given a user utterance, the KB Agent will determine if it is a question and if it can be answered by the knowledge base it builds.
 
