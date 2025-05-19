@@ -47,7 +47,7 @@ main:
     - call: Meta
 ```
 
-Please refer to [a Swarm implementation] (https://github.com/openai/swarm/tree/main/examples/airline) for comparison.
+Please refer to [a Swarm implementation](https://github.com/openai/swarm/tree/main/examples/airline) for comparison.
 <details>
   <summary>Partial Implementation of Swarm</summary>
   <pre><code>
