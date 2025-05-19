@@ -64,7 +64,7 @@ greeting:
   type: flow agent
   steps:
     - bot: How are you? 
-    - call: introduction
+    - next: introduction
     
   introduction:
     - bot: I am a service bot.
