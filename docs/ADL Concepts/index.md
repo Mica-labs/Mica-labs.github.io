@@ -38,6 +38,6 @@ ADL (Agent Declarative Language) is designed for simplicity.  It is guided by th
 </div>
 
 ** Simplify the syntax **
-![example](example.png)
+![example](example.png | width=400)
 
 For the complete language specification, please refer to [ADL: A Declarative Language for Agent-Based Chatbots, Sirui Zeng, Xifeng Yan, 	arXiv:2504.14787](https://arxiv.org/pdf/2504.14787). 
