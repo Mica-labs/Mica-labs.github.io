@@ -1,7 +1,7 @@
 ---
 layout: default
 title: How does MICA work
-nav_order: 6
+nav_order: 5
 ---
 
 In real-world service conversations, users may articulate their needs in an unpredictable order. MICA is specifically designed to handle this complexity efficiently. We conceptualize a service bot as a collection of autonomous agents, each capable of independently determining the next course of action—whether to switch agents, wait for user input, conclude the conversation, or take other necessary steps. Ultimately, our goal is to delegate as much conversational control as possible to the LLM, ensuring a more flexible and natural user experience, though control can still be regained by Flow Agents whenever necessary. 
