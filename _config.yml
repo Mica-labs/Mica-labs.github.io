@@ -103,7 +103,7 @@ heading_anchors: true
 
 # Aux links for the upper right navigation
 aux_links:
-  "MICA on GitHub":
+  "<i class='fab fa-github'> </i> MICA on GitHub":
     - "https://github.com/Mica-labs/MICA"
 
 # Makes Aux links open in a new tab. Default is false
