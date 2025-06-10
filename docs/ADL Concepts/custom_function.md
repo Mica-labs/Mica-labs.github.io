@@ -55,7 +55,7 @@ def get_weather_info(location, date):
         response = requests.get(base_url, params=params)
         response.raise_for_status()  # Raise HTTPError if the request fails
         print(response.text)  # The LLM will process this output internally
-        return [{'text': 'I have retrieved the weather for you.'}, {'slot_name': 'weather_info', 'value': response.json()}]
+        return [{'bot': 'I have retrieved the weather for you.'}, {'arg': 'weather_info', 'value': response.json()}]
     except requests.exceptions.RequestException as e:
         print('Query failed. Reason:', e)
         return
@@ -105,8 +105,8 @@ def get_info(username):
     if result:
         username, email, address = result
         return [
-            {"slot_name": "email", "value": email},
-            {"slot_name": "address", "value": address},
+            {"arg": "email", "value": email},
+            {"arg": "address", "value": address},
         ]
     else:
         return
@@ -120,8 +120,8 @@ def function_name(required_arg1, required_arg2, optional_arg1="value1", optional
     """function description (optional)"""
     # your logic here
     print("execution result")   # If this function is requested by the LLM, you can only communicate with the LLM via stdout (print statements)
-    return [{"text": "chatbot reply here."}, 
-            {"slot_name": "updated_arg", "value": "updated_value"}]     # If you want to directly add a bot response or modify some returned values, you should return them in this format
+    return [{"arg": "chatbot reply here."}, 
+            {"arg": "updated_arg", "value": "updated_value"}]     # If you want to directly add a bot response or modify some returned values, you should return them in this format
 ```
 
 
@@ -176,7 +176,7 @@ def web_query(arg1, arg2):
         
         if response.json():
             # You can pass external information back to the bot as an argument value.
-            return [{"slot_name": "<agent_name>.<arg_name>", "value": response.json().get("updated_arg")}] 
+            return [{"arg": "<agent_name>.<arg_name>", "value": response.json().get("updated_arg")}] 
         
         # If it is a string, it will be used as the bot's response.
         return response.text  
