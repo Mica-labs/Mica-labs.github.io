@@ -120,7 +120,7 @@ def function_name(required_arg1, required_arg2, optional_arg1="value1", optional
     """function description (optional)"""
     # your logic here
     print("execution result")   # If this function is requested by the LLM, you can only communicate with the LLM via stdout (print statements)
-    return [{"arg": "chatbot reply here."}, 
+    return [{"bot": "chatbot reply here."}, 
             {"arg": "updated_arg", "value": "updated_value"}]     # If you want to directly add a bot response or modify some returned values, you should return them in this format
 ```
 
