@@ -20,8 +20,12 @@ In this example, the user asks the bot to recommend a book. At this point:
 
 In addition, if an agent contains specific steps to execute, the log will indicate which step is currently being run. This allows you to verify whether the chatbot is executing according to your expectations.  
 ![img_1.png](img_1.png)
-If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. You can also access the most detailed logs under the project path at: `mica/app.log`
-The logs shown on the frontend page are all at the **INFO** level, which you can extract and analyze as needed. For readability, all intermediate messages in each dialogue round are indented by four spaces.  
+
+If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. The same information will also automatically be stored in the file: `mica/app.log`. It is generated automatically when you first launch the mica service.
+
+![img_2.png](img_2.png)
+
+All logs shown on the frontend page are at the **INFO** level, while the log file provides access to more detailed **DEBUG**-level information for further analysis. For readability, all intermediate messages in each dialogue round are indented by four spaces. 
 
 ## Using the Chatbot Service
 When deploying a chatbot, you can control the log verbosity using different arguments.  
@@ -44,4 +48,4 @@ We categorize potential issues in chatbot design into three main types:
 
 2. **LLM response errors.** The LLM generates responses that do not align with your design. These issues can often be resolved by switching to a different model for the agent or applying prompt engineering techniques.
 
-3. **Mica bugs.** If the logs suggest that the problem does not fall into the first two categories, it is likely a bug in Mica itself. In that case, we encourage you to open an issue on the Mica repository. We will respond and fix it promptly.
+3. **Mica bugs.** If the logs suggest that the problem does not fall into the first two categories, it is likely a bug in Mica itself. In that case, we encourage you to open an issue on the [Mica repository](https://github.com/Mica-labs/MICA). We will respond and fix it promptly.
