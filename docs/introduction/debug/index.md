@@ -1,7 +1,7 @@
 ---
 layout: default
 title: How to debug an ADL program
-nav_order: 6
+nav_order: 5
 ---
 
 When building our chatbot, we may encounter a variety of issues. To address this, Mica provides clear and targeted debugging displays. Below is a detailed introduction.
