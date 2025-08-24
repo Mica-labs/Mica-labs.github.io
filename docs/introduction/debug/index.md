@@ -6,29 +6,35 @@ nav_order: 5
 
 When building our chatbot, we may encounter a variety of issues. To address this, Mica provides clear and targeted debugging displays. Below is a detailed introduction.
 
-## Using the Frontend Page
-When programming with Mica’s built-in frontend interface, you can view concise debug logs directly on the page. 
+## Using the Workbench
+When programming with [MICA Workbench](/docs/start/index#mica-workbench), you can view concise debug logs directly on the page. 
 The figure below shows a logging example from the [**bookstore example**](/docs/start/bookstore) in this project. It illustrates the log information for a single round of dialogue.  
 
-In the lower half of the figure, you can see the normal chat window, while the upper half displays the corresponding logs.  
+As shown in the figure below, the left side displays the actual conversation, while the logs panel on the right shows the corresponding logs.
 
 In this example, the user asks the bot to recommend a book. At this point:  
 - The **store_policy_kb** agent generates a reply,  
 - The **triage** component does not adopt it and instead assigns the responsibility to the **book_recommendation** agent,  
-- The **book_recommendation** agent then produces the next reply, which is adopted as the bot’s response.  
-![img.png](img.png)
+- The **book_recommendation** agent then produces the next reply, which is adopted as the bot’s response.
+
+<p align="center">
+  <img src="img_3.png" alt="Image 1" width="48%">
+  <img src="img_4.png" alt="Image 2" width="48%">
+</p>
 
 In addition, if an agent contains specific steps to execute, the log will indicate which step is currently being run. This allows you to verify whether the chatbot is executing according to your expectations.  
 ![img_1.png](img_1.png)
 
-If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. The same information will also automatically be stored in the file: `mica/app.log`. It is generated automatically when you first launch the mica service.
+If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. 
+
+>The same information will also automatically be stored in the `logs` directory under the project root path, with the file name `<bot_name>.log`. When switching bots, the log will automatically be recorded in the corresponding log file.
 
 ![img_2.png](img_2.png)
 
 All logs shown on the frontend page are at the **INFO** level, while the log file provides access to more detailed **DEBUG**-level information for further analysis. For readability, all intermediate messages in each dialogue round are indented by four spaces. 
 
-## Using the Chatbot Service
-When deploying a chatbot, you can control the log verbosity using different arguments.  
+## Deploying the Chatbot Service
+When [deploying a chatbot](/docs/start/index#locally-deployment), you can control the log verbosity using different arguments.  
 
 If you only need brief information, start the chatbot service with:  
 

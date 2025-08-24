@@ -7,7 +7,7 @@ has_children: true
 
 Getting started with MICA is straightforward. There are two options: One is through a local GUI frontend; the other is being deployed with docker image.
 
-## Local GUI Frontend
+## MICA Workbench
 
 You can design and test the bot through a local GUI, which requires Python 3.8 or higher.  Please execute the following command to install the required dependencies:
 ```bash
@@ -19,19 +19,24 @@ export OPENAI_API_KEY=<your key>
 ```
 Then, start the service:
 ```bash
-python demo.py
+python -m mica.demo
 ```
 You can visit `http://localhost:7860` and start to design.
+
+> If the port `7860` is occupied, another port will be assigned automatically, and the specific address will be displayed in the logging information.
+
 ![img.png](gui.png)
 
-## GUI Feature Introduction
+## MICA Workbench Feature Introduction
 The local GUI provides features for online editing, testing, loading bots from local files, and saving bots to local storage.
 
 ### Real-time Editing
 You can customize your bot on the left side of the page. After editing, click the `Run` button at the top right to generate the bot.  
-![generate-sussess.png](generate-sussess.png)  
-If the generation fails, an alert will be displayed. Please check if your agents' format is correct.  
-![generate-error.png](generate-error.png)
+![generate-success.png](generate-success.png)  
+
+[//]: # (If the generation fails, an alert will be displayed. Please check if your agents' format is correct.  )
+
+[//]: # (![generate-error.png]&#40;generate-error.png&#41;)
 
 ### Load from Local Examples
 You can also load a bot from local examples and modify it as needed. After selecting the bot you want to load, you can start a conversation immediately or modify it further. Please note that if you modify the examples, you need to click the `Run` button before testing the latest bot. 
@@ -58,11 +63,11 @@ export OPENAI_API_KEY=<your key>
 ```
 Finally, start the service:
 ```bash
-python server.py
+python -m mica.server
 ```
 If you want to run the service in the background, you can use the following command. All logs will be stored in server.log in the current directory.
 ```bash
-nohup python -u server.py > server.log 2>&1 &
+nohup python -m mica.server > server.log 2>&1 &
 tail -f server.log
 ```
 ## Chat Service
