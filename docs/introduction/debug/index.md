@@ -1,6 +1,6 @@
 ---
 layout: default
-title: How to debug an ADL program
+title: Debug an ADL program
 nav_order: 5
 ---
 
