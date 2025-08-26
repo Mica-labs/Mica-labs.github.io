@@ -1,20 +1,18 @@
 ---
 layout: default
-title: Debug ADL programs
+title: Debug ADL Programs
 nav_order: 5
 ---
 
-When building our chatbot, we may encounter a variety of issues. To address this, Mica provides clear and targeted debugging displays. Below is a detailed introduction.
+When developing a chatbot, various issues may arise. To support troubleshooting, MICA provides comprehensive logging capabilities for effective debugging.
 
 ## Using the Workbench
-When programming with [MICA Workbench](/docs/start/index#mica-workbench), you can view concise debug logs directly on the page. 
-The figure below shows a logging example from the [**bookstore example**](/docs/start/bookstore) in this project. It illustrates the log information for a single round of dialogue.  
-
-As shown in the figure below, the left side displays the actual conversation, while the logs panel on the right shows the corresponding logs.
+When programming with [MICA Workbench](/docs/start/index#mica-workbench), you can view agent logs directly. 
+The figure below shows a log example from the [**bookstore example**](/docs/start/bookstore). The left side displays the actual conversation, while the right one shows the corresponding logs.
 
 In this example, the user asks the bot to recommend a book. At this point:  
 - The **store_policy_kb** agent generates a reply,  
-- The **triage** component does not adopt it and instead assigns the responsibility to the **book_recommendation** agent,  
+- The **triage** component does not adopt it and instead assigns the task to the **book_recommendation** agent,  
 - The **book_recommendation** agent then produces the next reply, which is adopted as the bot’s response.
 
 <p align="center">
@@ -22,7 +20,7 @@ In this example, the user asks the bot to recommend a book. At this point:
   <img src="img_4.png" alt="Image 2" width="48%">
 </p>
 
-In addition, if an agent contains specific steps to execute, the log will indicate which step is currently being run. This allows you to verify whether the chatbot is executing according to your expectations.  
+The log file provides a clear record of control transitions among the three agents. Furthermore, if an agent includes specific execution steps, the log identifies the step currently in progress. This enables you to verify that the chatbot is operating in alignment with your expectations.  
 ![img_1.png](img_1.png)
 
 If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. 
