@@ -23,15 +23,15 @@ In this example, the user asks the bot to recommend a book. At this point:
 The log file provides a clear record of control transitions among the three agents. Furthermore, if an agent includes specific execution steps, the log identifies the step currently in progress. This enables you to verify that the chatbot is operating in alignment with your expectations.  
 ![img_1.png](img_1.png)
 
-If you need more detailed logs, you can check the terminal where the service is running. There, you will find richer information, including **LLM request details**, which you can analyze to fine-tune your chatbot’s behavior. 
+For complete details, you can refer to the terminal where the service is running. It displays all runtime information, including **LLM request details**, which can be analyzed to optimize your chatbot’s performance.
 
->The same information will also automatically be stored in the `logs` directory under the project root path, with the file name `<bot_name>.log`. When switching bots, the log will automatically be recorded in the corresponding log file.
+>The same information will also be stored in the `logs` directory under the project path, with the file name `<bot_name>.log`. 
 
 ![img_2.png](img_2.png)
 
-All logs shown on the frontend page are at the **INFO** level, while the log file provides access to more detailed **DEBUG**-level information for further analysis. For readability, all intermediate messages in each dialogue round are indented by four spaces. 
+All logs shown on the MICA WorkBench are at the **INFO** level, while the .log file provides detailed **DEBUG**-level information for further analysis. 
 
-## Deploying the Chatbot Service
+## Deploying Chatbot Service
 When [deploying a chatbot](/docs/start/index#locally-deployment), you can control the log verbosity using different arguments.  
 
 If you only need brief information, start the chatbot service with:  
@@ -45,11 +45,15 @@ If you need more detailed information, start it with:
 python -m mica.server -vv
 ```
 
-## Possible Types of Errors
+## Bug Categories
 
-We categorize potential issues in chatbot design into three main types:
-1. **Prompt or agent design errors.** The chatbot behaves unexpectedly due to flaws in the prompt or agent design. In this case, analyze the logs, review the agent’s behavior, and adjust your chatbot’s logic.
+Bugs in ADL programs can generally be classified into three categories:
 
-2. **LLM response errors.** The LLM generates responses that do not align with your design. These issues can often be resolved by switching to a different model for the agent or applying prompt engineering techniques.
+1. **Prompt or Agent Design Errors**
+Unexpected chatbot behavior caused by flaws in the prompt or agent design. In such cases, review the logs, analyze the agent’s behavior, and refine the chatbot’s logic accordingly.
 
-3. **Mica bugs.** If the logs suggest that the problem does not fall into the first two categories, it is likely a bug in Mica itself. In that case, we encourage you to open an issue on the [Mica repository](https://github.com/Mica-labs/MICA). We will respond and fix it promptly.
+2. **LLM Response Errors**
+Instances where the LLM produces responses that deviate from the intended design. These issues can often be mitigated by selecting a different model for the agent or applying prompt engineering techniques.
+
+3. **MICA Bugs**
+If the logs indicate that the issue does not fall into the first two categories, it may be a bug in MICA itself. In this case, please open an issue in the [Mica repository](https://github.com/Mica-labs/MICA). Our team will review and address it promptly.
