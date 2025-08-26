@@ -56,4 +56,4 @@ Unexpected chatbot behavior caused by flaws in the prompt or agent design. In su
 Instances where the LLM produces responses that deviate from the intended design. These issues can often be mitigated by selecting a different model for the agent or applying prompt engineering techniques.
 
 3. **MICA Bugs.**
-If the logs indicate that the issue does not fall into the first two categories, it may be a bug in MICA itself. In this case, please open an issue in the [Mica repository](https://github.com/Mica-labs/MICA). Our team will review and address it promptly.
+If the logs indicate that the issue does not fall into the first two categories, it may be a bug in MICA itself. In this case, please open an issue in the [MICA repository](https://github.com/Mica-labs/MICA). Our team will review and address it promptly.
